@@ -99,9 +99,8 @@ const Checkbox: FC<ICheckboxProps> = ({
   //"btn btn-large"
 
   return (
-    <input type='checkbox' id="123" onClick={handleClick} disabled={disabled} className={constructClassName()}>
-        <span>{children}</span>
-        {rippleArr}
+    <input type='checkbox'>
+        
     </input>
   )
 }
