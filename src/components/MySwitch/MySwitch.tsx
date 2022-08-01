@@ -24,26 +24,26 @@ const MySwitch: FC<IMySwitchProps> = ({
 
     const DynamicClassNamesBase: string = "AntraUI-Switch-";
     const DynamicClassNames: string = [
-        DynamicClassNamesBase+label, 
+        label!="" ? DynamicClassNamesBase+"label" : DynamicClassNamesBase+"noLabel", 
         DynamicClassNamesBase+size, 
-        DynamicClassNamesBase+checked, 
+        checked ? DynamicClassNamesBase+"isChecked" : DynamicClassNamesBase+"notChecked", 
         DynamicClassNamesBase+color,
-        DynamicClassNamesBase+disabled
+        disabled ? DynamicClassNamesBase+"isDisabled" : DynamicClassNamesBase+"notDisabled"
     ].join(" ");
 
     const LabelComponent: FC = () => {
         return label != "" ?
-        <label className={`AntraUI-SwitchComponent-Switch-Label ${DynamicClassNames}`}>{label}</label>
+        <label className={`AntraUI-Switch-Label ${DynamicClassNames}`}>{label}</label>
         :
         <></>
     }
     
-
     return (
-        <div className="AntraUI-SwitchComponent-Container" onClick={()=>{onChange(!checked)}}>
-            <div className={`AntraUI-SwitchComponent-Switch-Container ${DynamicClassNames}`}>
-                <div className={`AntraUI-SwitchComponent-Switch-Track ${DynamicClassNames}`}></div>
-                <div className={`AntraUI-SwitchComponent-Switch-Head ${DynamicClassNames}`}></div>
+        <div className={`AntraUI-Switch-Container ${DynamicClassNames}`} onClick={()=>{if (!disabled) {onChange(!checked)}}}>
+            <div className={`AntraUI-Switch ${DynamicClassNames}`}>
+                <div className={`AntraUI-Switch-Track ${DynamicClassNames}`}></div>
+                <div className={`AntraUI-Switch-HeadHover ${DynamicClassNames}`}></div>
+                <div className={`AntraUI-Switch-Head ${DynamicClassNames}`}></div>
             </div>
             <LabelComponent />
         </div>
