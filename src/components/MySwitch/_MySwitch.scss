@@ -140,13 +140,12 @@ $color-map: (
 
         .switch-thumb-wrapper .switch-thumb {
             background-color: map-get(map-get($color-map, $color), "default");
-            animation: #{$color}-#{$size}-effect 0.3s linear;
         }
-    }
 
-    .switch-#{$color}-#{$size}:hover {
-        .switch-thumb-wrapper {
-            background-color: map-get(map-get($color-map, $color), "hover");
+        &:hover {
+            .switch-thumb-wrapper {
+                background-color: map-get(map-get($color-map, $color), "hover");
+            }
         }
     }
 }
@@ -171,13 +170,12 @@ $color-map: (
 
         .switch-thumb {
             background-color: $switch-light-color;
-            animation: Off-#{$size}-effect 0.3s linear;
         }
-    }
 
-    .switch-#{$size}-off:hover {
-        .switch-thumb-wrapper {
-            background-color: rgba($switch-dark-color, 0.04);
+        &:hover {
+            .switch-thumb-wrapper {
+                background-color: rgba($switch-dark-color, 0.04);
+            }
         }
     }
 }

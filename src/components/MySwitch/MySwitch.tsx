@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent, useState, useRef } from 'react';
 
 type SwitchColor = "primary" | "secondary" | "warning" | "default";
 
@@ -41,12 +41,19 @@ const MySwich: FC<IMySwitchProps> = ({
 }) => {
 
     const [isChecked, setIsChecked] = useState(checked);
+    const thumbRef = useRef<HTMLDivElement>(null);
 
     const handleClick = (e: MouseEvent) => {
         if (disabled) return;
         setIsChecked(!isChecked);
+
+        // Add animation after click
+        if (thumbRef && thumbRef.current) {
+            thumbRef.current.style.animation = !isChecked ? `${color}-${size}-effect 0.3s linear` : `Off-${size}-effect 0.3s linear`;
+        }
         onChange?.(e);
     }
+
 
     const switchContainer: string = ["switch", disabled ? `switch-disabled` : ""].join(" ");
     const switchStyle: string = isChecked ? `switch-${color}-${size}` : `switch-${size}-off`;
@@ -55,7 +62,7 @@ const MySwich: FC<IMySwitchProps> = ({
         <div className={switchContainer} onClick={handleClick}>
             <div className={switchStyle} >
                 <div className='switch-track-wrapper'><div className='switch-track'></div></div>
-                <div className='switch-thumb-wrapper'><div className='switch-thumb'></div></div>
+                <div className='switch-thumb-wrapper'><div className='switch-thumb' ref={thumbRef}></div></div>
             </div>
             {label}
         </div>
