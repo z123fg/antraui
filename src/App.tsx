@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import MyButton from './components/MyButton/MyButton';
+import MyRating from './components/MyRating/MyRating';
 
 
 
@@ -13,6 +14,7 @@ function App() {
       <MyButton onClick={()=>{console.log("clicked")}} color="secondary" variant="text" >SUBMIT</MyButton>
       <MyButton onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled>SUBMIT</MyButton>
       <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton>
+      <MyRating/>
     </div>
   );
 }
