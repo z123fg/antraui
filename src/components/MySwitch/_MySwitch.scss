@@ -1,6 +1,10 @@
 @use "../../scss/variable";
-@use "../../scss/mixin";
 
+$switch-light-color: #FAFAFA;
+$switch-dark-color: #000000;
+$switch-disabled-color: #BDBDBD;
+
+// The common css style
 .switch {
     font-family: variable.$font-family;
     display: flex;
@@ -27,12 +31,10 @@
 }
 
 .switch-thumb {
-    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 2px 1px rgba($switch-dark-color, 0.2), 0px 1px 1px rgba($switch-dark-color, 0.14), 0px 1px 3px rgba($switch-dark-color, 0.12);
 }
 
-$light-color: #FAFAFA;
-$dark-color: #000000;
-
+// switch-color-map
 $color-map: (
     primary: (default: #3F51B5,
         hover: rgba(63, 81, 181, 0.08)),
@@ -40,8 +42,8 @@ $color-map: (
         hover: rgba(245, 0, 87, 0.08)),
     warning: (default: #ed6c02,
         hover: rgba(#ed6c02, 0.08)),
-    default: (default: #FAFAFA,
-        hover: rgba(0, 0, 0, 0.08)),
+    default: (default: $switch-light-color,
+        hover: rgba($switch-dark-color, 0.04)),
 );
 
 @mixin smallSize {
@@ -50,7 +52,6 @@ $color-map: (
     position: relative;
 
     .switch-track-wrapper {
-
         padding: 7px;
 
         .switch-track {
@@ -105,105 +106,78 @@ $color-map: (
     }
 }
 
-@mixin color-checked-class($color, $size, $checked) {
-    .switch-#{$color}-#{$size}-#{$checked} {
+// Generate style for checked color switch
+@mixin color-checked-class($color, $size) {
+    .switch-#{$color}-#{$size} {
         @if $size =="medium" {
             @include mediumSize;
 
-            @if $checked =="on" {
-                @if $color =='default' {
-                    .switch-track {
-                        background-color: $dark-color;
-
-                    }
-                }
-
-                @else {
-                    .switch-track {
-                        background-color: map-get(map-get($color-map, $color), "default");
-                    }
-                }
-
-                .switch-thumb-wrapper {
-                    transform: translateX(20px);
-
-                    .switch-thumb {
-                        background-color: map-get(map-get($color-map, $color), "default");
-                        animation: #{$color}-#{$size}-effect 0.3s linear;
-                    }
-                }
-
-            }
-
-            @else {
-                .switch-track {
-                    background-color: $dark-color;
-                    opacity: 0.38;
-
-                }
-
-                .switch-thumb {
-                    background-color: $light-color;
-                    animation: Off-medium-effect 0.3s linear;
-                }
+            .switch-thumb-wrapper {
+                transform: translateX(20px);
             }
         }
 
         @else {
             @include smallSize;
 
-            @if $checked =="on" {
-                @if $color =='default' {
-                    .switch-track {
-                        background-color: $dark-color;
-                    }
-                }
-
-                @else {
-                    .switch-track {
-                        background-color: map-get(map-get($color-map, $color), "default");
-
-                    }
-                }
-
-                .switch-thumb-wrapper {
-                    transform: translateX(16px);
-
-                    .switch-thumb {
-                        background-color: map-get(map-get($color-map, $color), "default");
-                        animation: #{$color}-#{$size}-effect 0.3s linear;
-                    }
-                }
-            }
-
-            @else {
-                .switch-track {
-                    background-color: $dark-color;
-                    opacity: 0.38;
-
-                }
-
-                .switch-thumb {
-                    background-color: $light-color;
-                    animation: Off-small-effect 0.3s linear;
-                }
-
-
+            .switch-thumb-wrapper {
+                transform: translateX(16px);
             }
         }
-    }
 
-    .switch-#{$color}-#{$size}-#{$checked}:hover {
-        @if $checked =="on" {
-            .switch-thumb-wrapper {
-                background-color: map-get(map-get($color-map, $color), "hover");
+        @if $color =='default' {
+            .switch-track {
+                background-color: $switch-dark-color;
             }
         }
 
         @else {
-            .switch-thumb-wrapper {
-                background-color: rgba(0, 0, 0, 0.04);
+            .switch-track {
+                background-color: map-get(map-get($color-map, $color), "default");
+
             }
+        }
+
+        .switch-thumb-wrapper .switch-thumb {
+            background-color: map-get(map-get($color-map, $color), "default");
+            animation: #{$color}-#{$size}-effect 0.3s linear;
+        }
+    }
+
+    .switch-#{$color}-#{$size}:hover {
+        .switch-thumb-wrapper {
+            background-color: map-get(map-get($color-map, $color), "hover");
+        }
+    }
+}
+
+// Generate style for off switch
+@mixin switchOff($size) {
+    .switch-#{$size}-off {
+        @if $size =="medium" {
+            @include mediumSize;
+        }
+
+        @else {
+            @include smallSize;
+
+        }
+
+        .switch-track {
+            background-color: $switch-dark-color;
+            opacity: 0.38;
+
+        }
+
+        .switch-thumb {
+            background-color: $switch-light-color;
+            animation: Off-#{$size}-effect 0.3s linear;
+        }
+    }
+
+    .switch-#{$size}-off:hover {
+        .switch-thumb-wrapper {
+            background-color: rgba($switch-dark-color, 0.04);
         }
     }
 }
@@ -218,11 +192,8 @@ $size: (
     "small",
     "medium"
 );
-$checked: (
-    "on",
-    "off"
-);
 
+// Generate animations for switch change
 @mixin color-keyframes($color, $size) {
     @if $size =='medium' {
         @keyframes #{$color}-#{$size}-effect {
@@ -259,60 +230,57 @@ $checked: (
 
 @keyframes Off-medium-effect {
     0% {
-        outline: 2px solid rgba($light-color, 0.4);
+        outline: 2px solid rgba($switch-light-color, 0.4);
     }
 
     50% {
-        outline: 5px solid rgba($light-color, 0.2);
+        outline: 5px solid rgba($switch-light-color, 0.2);
     }
 
     100% {
-        outline: 9px solid rgba($light-color, 0);
+        outline: 9px solid rgba($switch-light-color, 0);
     }
 }
 
 @keyframes Off-small-effect {
     0% {
-        outline: 1px solid rgba($light-color, 0.3);
+        outline: 1px solid rgba($switch-light-color, 0.3);
     }
 
     50% {
-        outline: 2px solid rgba($light-color, 0.1);
+        outline: 2px solid rgba($switch-light-color, 0.1);
     }
 
     100% {
-        outline: 4px solid rgba($light-color, 0);
+        outline: 4px solid rgba($switch-light-color, 0);
     }
 }
 
 
 @mixin generate-color-checked-classes {
     @each $size in $size {
-        @each $color in $colors {
-            @each $check in $checked {
-                @include color-checked-class($color, $size, $check);
-            }
+        @include switchOff($size);
 
+        @each $color in $colors {
+            @include color-checked-class($color, $size);
             @include color-keyframes($color, $size);
         }
     }
-
 }
 
 @include generate-color-checked-classes();
 
 
-
 .switch-disabled {
     pointer-events: none;
     cursor: none;
-    color: rgba(0, 0, 0, 0.36);
+    color: rgba($switch-dark-color, 0.36);
 
     .switch-track {
-        background-color: rgba(0, 0, 0, 0.36);
+        background-color: rgba($switch-dark-color, 0.36);
     }
 
     .switch-thumb-wrapper .switch-thumb {
-        background-color: #BDBDBD;
+        background-color: $switch-disabled-color;
     }
 }
