@@ -40,24 +40,23 @@ const MySwitch: FC<IMySwitchProps> = ({
     }
     
     const handleClick = () => {
-        const newRipple = (
-            <div
-                key={rippleCounter++}
-                className={`AntraUI-Switch-Ripple ${DynamicClassNames}`}
-                onAnimationEnd={()=>{
-                    setRippleArr(prev=>{
-                        let nextRippleArr = [...prev];
-                        nextRippleArr.shift();
-                        return nextRippleArr;
-                    })
-                }}
-            >
-                
-            </div>
-        )
-        setRippleArr(prev=>[...prev, newRipple]);
-
         if (!disabled) {
+            const newRipple = (
+                <div
+                    key={rippleCounter++}
+                    className={`AntraUI-Switch-Ripple ${DynamicClassNames}`}
+                    onAnimationEnd={()=>{
+                        setRippleArr(prev=>{
+                            let nextRippleArr = [...prev];
+                            nextRippleArr.shift();
+                            return nextRippleArr;
+                        })
+                    }}
+                >
+                    
+                </div>
+            )
+            setRippleArr(prev=>[...prev, newRipple]);
             onChange(!checked);
         }
     }

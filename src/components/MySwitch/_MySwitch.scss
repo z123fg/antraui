@@ -18,7 +18,7 @@
         cursor: revert;
     }
 
-    &:hover > .AntraUI-Switch > .AntraUI-Switch-HeadHover {
+    &:hover &:not(.AntraUI-Switch-isDisabled) > .AntraUI-Switch > .AntraUI-Switch-HeadHover {
         display: revert;
     }
 }
@@ -102,7 +102,7 @@
 }
 .AntraUI-Switch-Ripple {
     position: absolute;
-    background-color: #232d63;
+    background-color: #151b3a;
     &.AntraUI-Switch-secondary {
         background-color: #750029;
     }
