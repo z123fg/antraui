@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, ReactNode } from "react";
 
 type SwitchColor = "primary" | "secondary" | "default";
 type SwitchSize = "small" | "medium";
@@ -12,7 +12,7 @@ interface IMySwitchProps {
     onChange?: Function
 }
 
-
+let rippleCounter = 0;
 const MySwitch: FC<IMySwitchProps> = ({
     label = "",
     color = "default",
@@ -21,6 +21,7 @@ const MySwitch: FC<IMySwitchProps> = ({
     disabled=false,
     onChange = ()=>{}
 }) => {
+    const [rippleArr, setRippleArr] = useState<ReactNode[]>([])
 
     const DynamicClassNamesBase: string = "AntraUI-Switch-";
     const DynamicClassNames: string = [
@@ -38,12 +39,36 @@ const MySwitch: FC<IMySwitchProps> = ({
         <></>
     }
     
+    const handleClick = () => {
+        const newRipple = (
+            <div
+                key={rippleCounter++}
+                className={`AntraUI-Switch-Ripple ${DynamicClassNames}`}
+                onAnimationEnd={()=>{
+                    setRippleArr(prev=>{
+                        let nextRippleArr = [...prev];
+                        nextRippleArr.shift();
+                        return nextRippleArr;
+                    })
+                }}
+            >
+                
+            </div>
+        )
+        setRippleArr(prev=>[...prev, newRipple]);
+
+        if (!disabled) {
+            onChange(!checked);
+        }
+    }
     return (
-        <div className={`AntraUI-Switch-Container ${DynamicClassNames}`} onClick={()=>{if (!disabled) {onChange(!checked)}}}>
+        <div className={`AntraUI-Switch-Container ${DynamicClassNames}`} onClick={handleClick}>
             <div className={`AntraUI-Switch ${DynamicClassNames}`}>
                 <div className={`AntraUI-Switch-Track ${DynamicClassNames}`}></div>
                 <div className={`AntraUI-Switch-HeadHover ${DynamicClassNames}`}></div>
-                <div className={`AntraUI-Switch-Head ${DynamicClassNames}`}></div>
+                <div className={`AntraUI-Switch-Head ${DynamicClassNames}`}>
+                    {rippleArr}
+                </div>
             </div>
             <LabelComponent />
         </div>

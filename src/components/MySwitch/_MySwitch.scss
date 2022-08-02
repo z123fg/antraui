@@ -100,6 +100,56 @@
         background-color: #BDBDBD;
     }
 }
+.AntraUI-Switch-Ripple {
+    position: absolute;
+    background-color: #232d63;
+    &.AntraUI-Switch-secondary {
+        background-color: #750029;
+    }
+    &.AntraUI-Switch-isChecked {
+        opacity: 4%;
+        background-color: #000000;
+    }
+    &.AntraUI-Switch-medium {
+        animation: SwitchRippleEffect 0.4s linear;
+    }
+    &.AntraUI-Switch-small {
+        animation: SwitchRippleEffectSmall 0.4s linear;
+    }
+    border-radius: 50%;
+}
+@keyframes SwitchRippleEffect {
+    0% {
+        width:0%;
+        height:0%;
+        top: 50%;
+        left: 50%;
+        opacity: 0.3;
+    }
+    100%{
+        width:200%;
+        height:200%;
+        top: -50%;
+        left: -50%;
+        opacity: 0;
+    }
+}
+@keyframes SwitchRippleEffectSmall {
+    0% {
+        width:0%;
+        height:0%;
+        top: 50%;
+        left: 50%;
+        opacity: 0.3;
+    }
+    100%{
+        width:150%;
+        height:150%;
+        top: -25%;
+        left: -25%;
+        opacity: 0;
+    }
+}
 .AntraUI-Switch-HeadHover {
     position: absolute;
     display: none;
