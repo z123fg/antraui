@@ -7,6 +7,7 @@
 
 // typography
 .antraUI-Accordion-summary-typography {
+  width: 40%;
   font-family: variable.$font-family;
   font-style: normal;
   font-weight: 400;
@@ -37,8 +38,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: space-between;
-
-  cursor: pointer;
   filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 }
 .antraUI-Accordion-container:first-of-type {
@@ -52,6 +51,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  cursor: pointer;
   padding: 0 16px;
   margin: 16px 0;
 }
@@ -63,7 +63,11 @@
 
 // wrappers
 .antraUI-Accordion-icon {
-  align-self: flex-start;
+  display: flex;
   height: 24px;
   width: 24px;
+  svg {
+    align-self: flex-start;
+    padding-bottom: 8px;
+  }
 }

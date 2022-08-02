@@ -41,7 +41,7 @@ const DefaultExpandIcon: FC = () => {
 
 const MyAccordion: FC<IMyAccordionProps> = ({
   summary = "Accordion Summary",
-  subSummary = "Accordian Sub-summary. Accordian Sub-summary. Accordian Sub-summary.",
+  subSummary = "Accordian Sub-summary.",
   detail = "This is an Accordion Detail",
   bgColor = "rgba(255, 255, 255, 1)",
   bgColorDisabled = "rgba(0, 0, 0, 0.12)",
@@ -57,13 +57,18 @@ const MyAccordion: FC<IMyAccordionProps> = ({
   const [expandedState, setExpandedState] = useState(isExpanded);
 
   const handleClick = useCallback(() => {
-    setExpandedState(!expandedState);
+    if (disabled === false) {
+      setExpandedState(!expandedState);
+    }
   }, [expandedState]);
 
   return (
     <article
       className="antraUI-Accordion-container"
-      style={{ backgroundColor: bgColor, marginBottom: expandedState ? 16 : 0}}
+      style={{
+        backgroundColor: disabled ? bgColorDisabled : bgColor,
+        marginBottom: expandedState ? 16 : 0,
+      }}
     >
       <div
         onClick={handleClick}
@@ -73,18 +78,20 @@ const MyAccordion: FC<IMyAccordionProps> = ({
         <p className="antraUI-Accordion-summary-typography">{summary}</p>
 
         {variant === "controlled" && (
-          <p 
+          <p
             className="antraUI-Accordion-summary-subtitle-typography"
             style={{ color: colorSecondary }}
-          >{!expandedState ? `${subSummary.substring(0, 40)}...` : subSummary}</p>
+          >
+            {!expandedState && subSummary.length > 40
+              ? `${subSummary.substring(0, 40)}...`
+              : subSummary}
+          </p>
         )}
 
         <div className="antraUI-Accordion-icon" style={{ fill: color }}>
           {expandIcon}
         </div>
       </div>
-
-      
 
       {expandedState && (
         <>
