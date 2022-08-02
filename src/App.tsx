@@ -16,7 +16,9 @@ function App() {
         <MyButton onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled>SUBMIT</MyButton>
         <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton>
       </div>
-      <h4>Checkbox Component</h4>
+      <br />
+      <br />
+      <br />
       <div style={{display:"flex", gap:"100px"}}>
         <Checkbox onClick={()=>{console.log("clicked")}} color="primary" size="small" variant="contained" disabled />
         <Checkbox onClick={()=>{console.log("clicked")}} color="default" size="medium" variant="outlined" />
