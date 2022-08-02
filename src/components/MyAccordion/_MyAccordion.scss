@@ -1,30 +1,43 @@
 @use "../../scss/variable";
 @use "../../scss/mixin";
 
+.antraUI-Accordion-container p {
+  margin: 0;
+}
+
+// typography
 .antraUI-Accordion-summary-typography {
   font-family: variable.$font-family;
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
-  line-height: 150%;
 }
 .antraUI-Accordion-detail-typography {
   font-family: variable.$font-family;
+  letter-spacing: 0.15px;
   font-style: normal;
+  text-align: start;
   font-weight: 400;
   font-size: 16px;
-  line-height: 150%;
-  letter-spacing: 0.15px;
+}
+.antraUI-Accordion-summary-subtitle-typography {
+  width: 45%;
+  font-family: variable.$font-family;
+  letter-spacing: 0.14px;
+  font-style: normal;
+  text-align: start;
+  font-weight: 400;
+  font-size: 15px;
 }
 
+// containers
 .antraUI-Accordion-container {
-  display: flex;
   width: 100%;
-  justify-content: center;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: space-between;
-  min-height: 48px;
-  padding: 0 16px;
+
   cursor: pointer;
   filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 }
@@ -37,12 +50,20 @@
 
 .antraUI-Accordion-summary-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 16px;
+  margin: 16px 0;
 }
 
+.antraUI-Accordion-detail-container {
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
+// wrappers
 .antraUI-Accordion-icon {
-  display: flex;
+  align-self: flex-start;
   height: 24px;
   width: 24px;
 }
