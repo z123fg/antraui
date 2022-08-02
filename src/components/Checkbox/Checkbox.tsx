@@ -2,7 +2,7 @@ import { FC, MouseEvent, ReactNode, useEffect, useState } from "react";
 
 type ButtonColor = "primary" | "secondary" | "default";
 
-type ButtonSize = "small" | "medium" | "large";
+type checkboxSize = "small" | "medium" | "large";
 
 type ButtonVariant = "contained" | "outlined" | "text";
 
@@ -15,7 +15,7 @@ interface ICheckboxProps {
   /**
    * customize the size of the checkbox
    */
-  size?: ButtonSize;
+  size?: checkboxSize;
   /**
    * customize the variant style of the checkbox
    */
@@ -99,7 +99,7 @@ const Checkbox: FC<ICheckboxProps> = ({
   //"btn btn-large"
 
   return (
-    <input type='checkbox'>
+    <input type='checkbox' className={constructClassName()}>
         
     </input>
   )

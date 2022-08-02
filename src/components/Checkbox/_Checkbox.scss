@@ -130,52 +130,23 @@ $variants: ("contained", "outlined", "text");
 @include generate-color-variant-classes();
 
 .btn-small {
-  min-width: 97px;
-  height: 30px;
-  span {
-    @include mixin.font-small;
-    pointer-events: none;
-  }
+  height: 15px;
+  width: 15px;
 }
 
 .btn-medium {
-  min-width: 113px;
-  height: 36px;
-  span {
-    @include mixin.font-medium;
-    pointer-events: none;
-  }
+  height: 18px;
+  width: 18px;
 }
-
-/* 
-.btn-medium{
-  min-width: 113px;
-  height: 36px;
-}
-
-.btn-medium span{
-    @include mixin.font-medium;
-    pointer-events: none;
-}
-
-
-*/
 
 .btn-large {
-  min-width: 131px;
-  height: 42px;
-  span {
-    @include mixin.font-large;
-    pointer-events: none;
-  }
+  height: 21px;
+  width: 21px;
 }
 
 .btn span{
   user-select: none;
 }
-
-
-
 
 @keyframes rippleEffect {
   0% {

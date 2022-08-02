@@ -5,8 +5,10 @@
 @use "./scss/mixin";
 
 @use "./components/MyButton/MyButton";
+@use "./components/Checkbox/Checkbox";
 
 
 html{
-  padding:100px
+  padding:800px 1100px;
+  background-color: rgba(62, 10, 10, 0.216);
 }
