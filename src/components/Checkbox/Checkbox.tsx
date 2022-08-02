@@ -1,11 +1,11 @@
 import { FC, MouseEvent, ReactNode, useEffect, useState } from "react";
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 type ButtonColor = "primary" | "secondary" | "default";
 
 type checkboxSize = "small" | "medium" | "large";
 
 type ButtonVariant = "contained" | "outlined" | "text";
-
 
 interface ICheckboxProps {
   /**
@@ -31,12 +31,13 @@ interface ICheckboxProps {
   /**
    * event handler for the click event of the checkbox
    */
-  onClick?:(event:MouseEvent) => void
+  checked?: boolean;
+  onClick?: (event: MouseEvent) => void;
 }
 
 interface IClickPosition {
-  x:number;
-  y:number;
+  x: number;
+  y: number;
 }
 
 let counter = 0;
@@ -46,63 +47,77 @@ const Checkbox: FC<ICheckboxProps> = ({
   size = "medium",
   variant = "contained",
   disabled = false,
+  checked = false,
   children,
-  onClick
+  onClick,
 }) => {
-  const [clickPosition, setClickPosition] = useState<IClickPosition | null>(null); 
-  const [rippleArr, setRippleArr] = useState<ReactNode[]>([])
+  const [clickPosition, setClickPosition] =
+    useState<IClickPosition | null>(null);
+  const [rippleArr, setRippleArr] = useState<ReactNode[]>([]);
+  const [checkstate, setCheck] = useState(checked);
 
-  const handleClick = (e:MouseEvent) => {
-    if(disabled) return;
-    const {offsetX, offsetY} = e.nativeEvent; 
-    setClickPosition({x:offsetX, y:offsetY})
+  const handleClick = (e: MouseEvent) => {
+    if (disabled) return;
+    const { offsetX, offsetY } = e.nativeEvent;
+    setClickPosition({ x: offsetX, y: offsetY });
     onClick?.(e);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     //add the ripple circle to the rippleArr state
-    if(clickPosition !== null){
+    if (clickPosition !== null) {
       const newRipple = (
         <div
-          data-testid="ripple-element" 
+          data-testid="ripple-element"
           key={counter++}
-          style={{//position
-            position:"absolute",
+          style={{
+            //position
+            position: "absolute",
             left: clickPosition.x,
             top: clickPosition.y,
-            transform:"translate(-50%,-50%)"
+            transform: "translate(-50%,-50%)",
           }}
-          className={`btn-ripple-${color}-${variant}`}
-          onAnimationEnd={()=>{
-            setRippleArr(prev=>{
+          className={`checkbox-ripple-${color}-${variant}`}
+          onAnimationEnd={() => {
+            setRippleArr((prev) => {
               let nextRippleArr = [...prev];
               nextRippleArr.shift();
               return nextRippleArr;
-
-            })
+            });
           }}
-        >
-        </div>
-      )
-      setRippleArr(prev=>[...prev, newRipple]);
-
+        ></div>
+      );
+      setRippleArr((prev) => [...prev, newRipple]);
     }
+  }, [clickPosition]);
 
-  },[clickPosition])
+  const constructClassName: () => string = () => {
+    const colorVariantCls = `checkbox-${color}-${variant}`;
+    const sizeCls = `checkbox-${size}`;
+    return ["checkbox", colorVariantCls, sizeCls].join(" ");
+  };
+  const constructIconClassName: () => string = () => {
+    const colorVariantCls = `checkbox--icon-${color}-${variant}`;
+    const sizeCls = `checkbox--icon-${size}`;
+    return ["checkbox--icon", colorVariantCls, sizeCls].join(" ");
+  };
 
-  const constructClassName:()=>string = () => {
-    const colorVariantCls = `btn-${color}-${variant}`;
-    const sizeCls = `btn-${size}`
-    return ["btn", colorVariantCls, sizeCls].join(" ")
-  }
-
-  //"btn btn-large"
+  //"checkbox checkbox-large"
 
   return (
-    <input type='checkbox' className={constructClassName()}>
-        
-    </input>
-  )
-}
+    <label htmlFor="checkbox">
+      <input
+        name="checkbox"
+        type="checkbox"
+        className={constructClassName()}
+        checked={checkstate}
+        onChange={() => {
+          setCheck(!checkstate);
+        }}
+      />
+      {checkstate ? <MdCheckBox className={constructIconClassName()} /> : <MdCheckBoxOutlineBlank className={constructIconClassName()} />}
+    </label>
+  );
+};
 
-export default Checkbox
+export default Checkbox;

@@ -5,7 +5,6 @@ import MyButton from './components/MyButton/MyButton';
 import Checkbox from './components/Checkbox/Checkbox';
 
 
-
 function App() {
   return (
     <>
@@ -21,7 +20,7 @@ function App() {
       <br />
       <div style={{display:"flex", gap:"100px"}}>
         <Checkbox onClick={()=>{console.log("clicked")}} color="primary" size="small" variant="contained" disabled />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="default" size="medium" variant="outlined" />
+        <Checkbox onClick={()=>{console.log("clicked")}} color="default" size="large" variant="outlined" />
         <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" />
         <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled />
         <Checkbox onClick={()=>{console.log("clicked")}} color="primary" variant="contained" />

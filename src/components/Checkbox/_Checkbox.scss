@@ -14,15 +14,6 @@
   @include
 */
 
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 4px;
-  position:relative;
-  overflow: hidden;
-}
 
 $color-map: (
   primary: (
@@ -30,43 +21,43 @@ $color-map: (
     hover: variable.$primary-color-hover,
     disabled: rgba(0, 0, 0, 0.12),
     textColor:#FFFFFF
-  ),
-  secondary: (
-    default: variable.$secondary-color,
-    hover: variable.$secondary-color-hover,
-    disabled: rgba(0, 0, 0, 0.12),
-    textColor:#FFFFFF
-  ),
-  default: (
-    default: variable.$default-color,
-    hover: variable.$default-color-hover,
-    disabled: rgba(0, 0, 0, 0.12),
-    textColor:rgba(0, 0, 0, 0.87)
-  ),
-);
-
-@mixin color-variant-class($color, $variant) {
-  .btn-#{$color}-#{$variant} {
-    @if $variant == "contained" {
-      color: map-get(map-get($color-map, $color), "textColor");
-      background-color: map-get(map-get($color-map, $color), "default");
-      border: none;
-      filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.2))
-        drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.14))
-        drop-shadow(0px 1px 5px rgba(0, 0, 0, 0.12));
+    ),
+    secondary: (
+      default: variable.$secondary-color,
+      hover: variable.$secondary-color-hover,
+      disabled: rgba(0, 0, 0, 0.12),
+      textColor:#FFFFFF
+      ),
+      default: (
+        default: variable.$default-color,
+        hover: variable.$default-color-hover,
+        disabled: rgba(0, 0, 0, 0.12),
+        textColor:rgba(0, 0, 0, 0.87)
+        ),
+        );
+        
+        @mixin color-variant-class($color, $variant) {
+          .checkbox-#{$color}-#{$variant} {
+            @if $variant == "contained" {
+              color: map-get(map-get($color-map, $color), "textColor");
+              background-color: map-get(map-get($color-map, $color), "default");
+              border: none;
+              filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.2))
+              drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.14))
+              drop-shadow(0px 1px 5px rgba(0, 0, 0, 0.12));
     } @else if $variant == "outlined" {
       background: none;
       color: map-get(map-get($color-map, $color), "default");
       border: 1px
-        solid
-        rgba(map-get(map-get($color-map, $color), "default"), 0.23);
+      solid
+      rgba(map-get(map-get($color-map, $color), "default"), 0.23);
     } @else {
       border: none;
       background: none;
       color: map-get(map-get($color-map, $color), "default");
     }
   }
-  .btn-#{$color}-#{$variant}:hover {
+  .checkbox-#{$color}-#{$variant}:hover {
     @if $variant == "contained" {
       background-color: map-get(map-get($color-map, $color), "hover");
       filter: none;
@@ -74,35 +65,35 @@ $color-map: (
       background-color: rgba(
         map-get(map-get($color-map, $color), "default"),
         0.08
-      );
-      border: 1px
+        );
+        border: 1px
         solid
         rgba(map-get(map-get($color-map, $color), "default"), 0.23);
-    } @else {
-      background-color: rgba(
-        map-get(map-get($color-map, $color), "default"),
-        0.08
-      );
-    }
-  }
-
-  .btn-#{$color}-#{$variant}:disabled {
-    @if $variant == "contained" {
-      background-color: variable.$disabled-color;
-      filter: none;
-      color: variable.$disabled-font-color;
-    } @else if $variant == "outlined" {
-      background: none;
-      color: variable.$disabled-font-color;
-      border: 1px solid variable.$disabled-color;
-    } @else {
+      } @else {
+        background-color: rgba(
+          map-get(map-get($color-map, $color), "default"),
+          0.08
+          );
+        }
+      }
+      
+      .checkbox-#{$color}-#{$variant}:disabled {
+        @if $variant == "contained" {
+          background-color: variable.$disabled-color;
+          filter: none;
+          color: variable.$disabled-font-color;
+        } @else if $variant == "outlined" {
+          background: none;
+          color: variable.$disabled-font-color;
+          border: 1px solid variable.$disabled-color;
+        } @else {
       background: none;
       color: variable.$disabled-font-color;
     }
     pointer-events: none;
   }
-
-  .btn-ripple-#{$color}-#{$variant}{
+  
+  .checkbox-ripple-#{$color}-#{$variant}{
     pointer-events: none;
     animation: rippleEffect 0.6s linear;
     border-radius: 50%;
@@ -129,22 +120,55 @@ $variants: ("contained", "outlined", "text");
 
 @include generate-color-variant-classes();
 
-.btn-small {
+.checkbox-small {
+  height: 15px;
+  width: 15px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+.checkbox--icon-small {
+  position: absolute;
   height: 15px;
   width: 15px;
 }
 
-.btn-medium {
+.checkbox-medium {
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+.checkbox--icon-medium {
+  position: absolute;
   height: 18px;
   width: 18px;
 }
 
-.btn-large {
+.checkbox-large {
+  height: 21px;
+  width: 21px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+.checkbox--icon-large {
+  position: absolute;
   height: 21px;
   width: 21px;
 }
 
-.btn span{
+.checkbox span{
   user-select: none;
 }
 
