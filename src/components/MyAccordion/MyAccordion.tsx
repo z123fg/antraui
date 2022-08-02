@@ -20,7 +20,7 @@ interface IMyAccordionProps {
   // disable accordion
   disabled?: boolean;
   // onchange event
-  onChange?: (evt: ChangeEvent) => void;
+  onClick?: (evt: MouseEvent) => void;
 }
 
 const DefaultExpandIcon: FC = () => {
@@ -40,11 +40,11 @@ const MyAccordion: FC<IMyAccordionProps> = ({
   isExpanded = false,
   defaultExpandIcon = <DefaultExpandIcon />,
   disabled = false,
-  onChange,
+  onClick,
 }) => {
   const [expandedState, setExpandedState] = useState(isExpanded);
 
-  const handleChange = useCallback(() => {
+  const handleClick = useCallback(() => {
     setExpandedState(!expandedState);
   }, [expandedState]);
 
@@ -54,7 +54,7 @@ const MyAccordion: FC<IMyAccordionProps> = ({
       style={{ backgroundColor: bgColor, marginBottom: expandedState ? 16 : 0}}
     >
       <div
-        onClick={handleChange}
+        onClick={handleClick}
         className="antraUI-Accordion-summary-container"
         style={{ color: color }}
       >
