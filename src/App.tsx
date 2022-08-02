@@ -17,7 +17,7 @@ function App() {
         <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton>
       </div>
       <div style={{display:"flex", gap:"10px", marginTop:"20px"}}>
-        <MySlider />
+        <MySlider value={50}/>
       </div>
     </>
   );

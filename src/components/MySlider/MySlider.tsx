@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent } from 'react'
+import React, { FC, ChangeEvent, useState } from 'react'
 
 type SliderSize = 'small' | 'medium' | string
 
@@ -54,20 +54,39 @@ const MySlider: FC<IMySliderProps> = ({
   step = 1,
   onChange,
 }) => {
+  const [values, setValues] = useState(Array.isArray(value) ? value : [value]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, idx: number) => {
+    const newValues = [...values]
+    newValues[idx] = +e.target.value
+    setValues(newValues)
     onChange?.(e)
   }
 
   return (
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      disabled={disabled}
-      onChange={handleChange}
-    />
+    <span className="slider-root">
+      <span className="slider-rail slider-rail--horizontal"/>
+      <span className="slider-track slider-track--horizontal"/>
+      {values.map((value, index) => {
+        return (
+          <React.Fragment key={`slider-${index}`}>
+            <span className="slider-thumb slider-thumb--horizontal">
+              <input
+                type="range"
+                className="slider-thumb__input"
+                value={value}
+                onChange={(e) => handleChange(e, index)}
+              />
+            </span>
+            {/* <span className={clsx(classes.offset, className)} theme={theme} aria-hidden>
+              <span className={classes.circle}>
+                <span className={classes.label}>{value}</span>
+              </span>
+            </span> */}
+          </React.Fragment>
+        );
+      })}
+    </span>
   )
 }
 
