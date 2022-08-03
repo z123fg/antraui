@@ -50,11 +50,11 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 // containers
 .antraUI-Accordion-container {
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: space-between;
   flex-direction: column;
+  transition: all 1s ease;
 
   filter: $accordion-filter;
 
@@ -77,10 +77,13 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 }
 
 .antraUI-Accordion-detail-container {
-  @include accordion-gutter;
-  width: 100%;
-  overflow: hidden;
-  transition: all 0.6s ease;
+  display: block;
+  max-width: 100%;
+  transition: max-height 1s ease;
+  overflow: auto;
+}
+.antraUI-Accordion-detail-container::-webkit-scrollbar {
+  display: none;
 }
 
 // wrappers

@@ -2,7 +2,7 @@
 // COMPONENT FOR TESTING PURPOSES ONLY
 //
 
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useCallback, useState } from "react";
 import MyAccordion from "../MyAccordion";
 
 const UserExpandIcon: React.FC = () => {
@@ -39,37 +39,32 @@ const accordionData = [
 const MyAccordionParent: FC = () => {
   const [expanded, setExpanded] = useState(false);
 
+  console.log(expanded);
+
   return (
-    <>
-      <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
+    <div style={{ minHeight: "100vh" }}>
+      <div style={{ maxWidth: 800, marginTop: 20 }}>
         <MyAccordion
-          isExpanded={expanded}
-          onClick={() => console.log("clicked")}
           variant="controlled"
+          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
         />
         <MyAccordion
-          isExpanded={expanded}
-          onClick={() => console.log("clicked")}
           variant="controlled"
+          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
         />
         <MyAccordion
-          isExpanded={expanded}
-          onClick={() => console.log("clicked")}
           variant="controlled"
+          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
         />
-        <MyAccordion
-          isExpanded={expanded}
-          onClick={() => console.log("clicked")}
-          variant="controlled"
-        />
+        <MyAccordion variant="controlled" />
       </div>
-      <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
+      <div style={{ maxWidth: 800, marginTop: 20 }}>
         <MyAccordion variant="simple" />
         <MyAccordion variant="simple" />
         <MyAccordion variant="simple" />
         <MyAccordion variant="simple" />
       </div>
-    </>
+    </div>
   );
 };
 export default MyAccordionParent;
