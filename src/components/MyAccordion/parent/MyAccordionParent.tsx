@@ -2,7 +2,7 @@
 // COMPONENT FOR TESTING PURPOSES ONLY
 //
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import MyAccordion from "../MyAccordion";
 
 const UserExpandIcon: React.FC = () => {
@@ -37,24 +37,39 @@ const accordionData = [
 ];
 
 const MyAccordionParent: FC = () => {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
-      {accordionData.map((tab) => (
+    <>
+      <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
         <MyAccordion
-          key={tab.id}
-          summary={tab.summary}
-          detail={tab.detail}
-          // variant="controlled"
-          // isExpanded={true}
-          // disabled={true}
-          // expandIcon={<UserExpandIcon />}
-          // bgColor="red"
-          // bgColorDisabled=""
-          // color=""
-          // colorSecondary=""
+          isExpanded={expanded}
+          onClick={() => console.log("clicked")}
+          variant="controlled"
         />
-      ))}
-    </div>
+        <MyAccordion
+          isExpanded={expanded}
+          onClick={() => console.log("clicked")}
+          variant="controlled"
+        />
+        <MyAccordion
+          isExpanded={expanded}
+          onClick={() => console.log("clicked")}
+          variant="controlled"
+        />
+        <MyAccordion
+          isExpanded={expanded}
+          onClick={() => console.log("clicked")}
+          variant="controlled"
+        />
+      </div>
+      <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
+        <MyAccordion variant="simple" />
+        <MyAccordion variant="simple" />
+        <MyAccordion variant="simple" />
+        <MyAccordion variant="simple" />
+      </div>
+    </>
   );
 };
 export default MyAccordionParent;

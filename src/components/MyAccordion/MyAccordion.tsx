@@ -36,7 +36,7 @@ interface IMyAccordionProps {
   // onChange event
   onChange?: (evt: ChangeEvent) => void;
   // onClick event
-  onClick?: (evt: MouseEvent) => void;
+  onClick?: () => void;
 }
 
 const DefaultExpandIcon: FC = () => {
@@ -87,6 +87,33 @@ const MyAccordion: FC<IMyAccordionProps> = ({
     }
   }, [expandedState]);
 
+  const summaryChildren = (
+    <>
+      <p className="antraUI-Accordion-summary-typography">{summary}</p>
+
+      {variant === "controlled" && (
+        <p
+          className="antraUI-Accordion-summary-subtitle-typography"
+          style={{ color: colorSecondary }}
+        >
+          {!expandedState && subSummary.length > 40
+            ? `${subSummary.substring(0, 40)}...`
+            : subSummary}
+        </p>
+      )}
+
+      <div
+        className="antraUI-Accordion-icon"
+        style={{
+          fill: color,
+          transform: expandedState ? "rotate(180deg)" : "",
+        }}
+      >
+        {expandIcon}
+      </div>
+    </>
+  );
+
   return (
     <article
       className="antraUI-Accordion-container"
@@ -95,34 +122,23 @@ const MyAccordion: FC<IMyAccordionProps> = ({
         marginBottom: expandedState ? 16 : 0,
       }}
     >
-      <div
-        onClick={handleClick}
-        className="antraUI-Accordion-summary-container"
-        style={{ color: color }}
-      >
-        <p className="antraUI-Accordion-summary-typography">{summary}</p>
-
-        {variant === "controlled" && (
-          <p
-            className="antraUI-Accordion-summary-subtitle-typography"
-            style={{ color: colorSecondary }}
-          >
-            {!expandedState && subSummary.length > 40
-              ? `${subSummary.substring(0, 40)}...`
-              : subSummary}
-          </p>
-        )}
-
+      {variant === "simple" ? (
         <div
-          className="antraUI-Accordion-icon"
-          style={{
-            fill: color,
-            transform: expandedState ? "rotate(180deg)" : "",
-          }}
+          onClick={handleClick}
+          className="antraUI-Accordion-summary-container"
+          style={{ color: color }}
         >
-          {expandIcon}
+          {summaryChildren}
         </div>
-      </div>
+      ) : (
+        <div
+          onClick={onClick}
+          className="antraUI-Accordion-summary-container"
+          style={{ color: color }}
+        >
+          {summaryChildren}
+        </div>
+      )}
 
       {expandedState && (
         <div
