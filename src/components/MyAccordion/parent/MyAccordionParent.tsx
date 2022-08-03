@@ -2,7 +2,7 @@
 // COMPONENT FOR TESTING PURPOSES ONLY
 //
 
-import { ChangeEvent, FC, useCallback, useState } from "react";
+import { FC, useState } from "react";
 import MyAccordion from "../MyAccordion";
 
 const UserExpandIcon: React.FC = () => {
@@ -17,21 +17,25 @@ const accordionData = [
   {
     id: 0,
     summary: "Basic Accordion #1 Summary",
+    subSummary: "Basic Sub-Summary",
     detail: "Basic Accordion Detail.",
   },
   {
     id: 1,
     summary: "Basic Accordion #2 Summary",
+    subSummary: "Basic Sub-Summary",
     detail: "Basic Accordion Detail.",
   },
   {
     id: 2,
     summary: "Basic Accordion #3 Summary",
+    subSummary: "Basic Sub-Summary",
     detail: "Basic Accordion Detail.",
   },
   {
     id: 3,
     summary: "Basic Accordion #4 Summary",
+    subSummary: "Basic Sub-Summary",
     detail: "Basic Accordion Detail.",
   },
 ];
@@ -44,20 +48,16 @@ const MyAccordionParent: FC = () => {
   return (
     <div style={{ minHeight: "100vh" }}>
       <div style={{ maxWidth: 800, marginTop: 20 }}>
-        <MyAccordion
-          variant="controlled"
-          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
-        />
-        <MyAccordion
-          variant="controlled"
-          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
-        />
-        <MyAccordion
-          variant="controlled"
-          detail={`This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail.This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. This is a long Detail. `}
-        />
-        <MyAccordion variant="controlled" />
+        {accordionData.map((panel) => (
+          <MyAccordion
+            variant="controlled"
+            summary={panel.summary}
+            subSummary={panel.subSummary}
+            detail={panel.detail}
+          />
+        ))}
       </div>
+
       <div style={{ maxWidth: 800, marginTop: 20 }}>
         <MyAccordion variant="simple" />
         <MyAccordion variant="simple" />
