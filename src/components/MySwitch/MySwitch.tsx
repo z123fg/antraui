@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, ReactNode } from "react";
+import { FC, useEffect, MouseEvent, useState, ReactNode } from "react";
 
 type SwitchColor = "primary" | "secondary" | "default";
 type SwitchSize = "small" | "medium";
@@ -9,7 +9,7 @@ interface IMySwitchProps {
     size?: SwitchSize,
     checked?: Boolean,
     disabled?: Boolean,
-    onChange?: Function
+    onChange?: (event:MouseEvent) => void
 }
 
 let rippleCounter = 0;
@@ -19,7 +19,7 @@ const MySwitch: FC<IMySwitchProps> = ({
     size = "medium",
     checked = false,
     disabled=false,
-    onChange = ()=>{}
+    onChange
 }) => {
     const [rippleArr, setRippleArr] = useState<ReactNode[]>([])
 
@@ -39,7 +39,7 @@ const MySwitch: FC<IMySwitchProps> = ({
         <></>
     }
     
-    const handleClick = () => {
+    const handleClick = (e: MouseEvent) => {
         if (!disabled) {
             const newRipple = (
                 <div
@@ -57,7 +57,7 @@ const MySwitch: FC<IMySwitchProps> = ({
                 </div>
             )
             setRippleArr(prev=>[...prev, newRipple]);
-            onChange(!checked);
+            onChange?.(e);
         }
     }
     return (
