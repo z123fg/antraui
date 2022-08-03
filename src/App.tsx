@@ -4,6 +4,7 @@ import './App.scss';
 import MyButton from './components/MyButton/MyButton';
 import Checkbox from './components/Checkbox/Checkbox';
 
+import { MdCheckBoxOutlineBlank, MdCheckBox, MdTurnedInNot, MdTurnedIn, MdOutlineFavoriteBorder, MdOutlineFavorite} from "react-icons/md";
 
 function App() {
   return (
@@ -19,11 +20,11 @@ function App() {
       <br />
       <br />
       <div style={{display:"flex", gap:"100px"}}>
-        <Checkbox onClick={()=>{console.log("clicked")}} color="primary" size="small" variant="contained" disabled />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="default" size="large" variant="outlined" />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled icon="favorite"/>
-        <Checkbox onClick={()=>{console.log("clicked")}} color="primary" variant="contained" icon="bookmark"/>
+        <Checkbox color="primary" disabled />
+        <Checkbox color="default" />
+        <Checkbox color="secondary" />
+        <Checkbox color="primary" disabled icon={<MdOutlineFavoriteBorder />} checkedIcon={<MdOutlineFavorite />} />
+        <Checkbox color="secondary"  icon={<MdTurnedInNot />} checkedIcon={<MdTurnedIn />} />
       </div>
     </>
   );

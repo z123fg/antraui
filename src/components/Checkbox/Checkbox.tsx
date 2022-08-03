@@ -1,13 +1,12 @@
+import React from "react";
 import { FC, MouseEvent, ReactNode, useEffect, useState } from "react";
-import { MdCheckBoxOutlineBlank, MdCheckBox, MdTurnedInNot, MdTurnedIn, MdOutlineFavoriteBorder, MdOutlineFavorite} from "react-icons/md";
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 type ButtonColor = "primary" | "secondary" | "default";
 
 type checkboxSize = "small" | "medium" | "large";
 
 type ButtonVariant = "contained" | "outlined" | "text";
-
-type icons = "checkmark" | "favorite" | "bookmark";
 
 interface ICheckboxProps {
   /**
@@ -34,10 +33,11 @@ interface ICheckboxProps {
    * event handler for the click event of the checkbox
    */
   checked?: boolean;
-    /**
+  /**
    * customize the icon to be checked
    */
-  icon?: icons;
+  icon?: ReactNode;
+  checkedIcon?: ReactNode;
   onClick?: (event: MouseEvent) => void;
 }
 
@@ -54,7 +54,8 @@ const Checkbox: FC<ICheckboxProps> = ({
   variant = "contained",
   disabled = false,
   checked = false,
-  icon = "checkmark",
+  icon = <MdCheckBoxOutlineBlank />,
+  checkedIcon = <MdCheckBox />,
   children,
   onClick,
 }) => {
@@ -70,18 +71,6 @@ const Checkbox: FC<ICheckboxProps> = ({
     onClick?.(e);
   };
 
-  const getIconFromName = (iconName: icons) => {
-    switch (iconName) {
-      case 'checkmark':
-        return <MdCheckBox />
-      case 'favorite':
-        return <MdOutlineFavorite/>
-      case 'bookmark':
-        return <MdTurnedInNot />
-    }
-  }
-
-  const iconType = getIconFromName(icon);
   useEffect(() => {
     //add the ripple circle to the rippleArr state
     if (clickPosition !== null) {
@@ -118,10 +107,9 @@ const Checkbox: FC<ICheckboxProps> = ({
   const constructIconClassName: () => string = () => {
     const colorVariantCls = `checkbox--icon-${color}-${variant}`;
     const sizeCls = `checkbox--icon-${size}`;
-    return ["checkbox--icon", colorVariantCls, sizeCls].join(" ");
+    const filled = checkstate ? `filled` : `nofill`;
+    return ["checkbox--icon", colorVariantCls, sizeCls, filled].join(" ");
   };
-
-  //"checkbox checkbox-large"
 
   return (
     <label htmlFor="checkbox">
@@ -134,23 +122,9 @@ const Checkbox: FC<ICheckboxProps> = ({
           setCheck(!checkstate);
         }}
       />
-      {checkstate && iconType?.type.name === "MdCheckBox" &&  
-        <MdCheckBox className={constructIconClassName()} />
-      }
-      {!checkstate && iconType?.type.name === "MdCheckBox" && 
-        <MdCheckBoxOutlineBlank className={constructIconClassName()} />}
-
-      {checkstate && iconType?.type.name === "MdOutlineFavorite" && 
-        <MdOutlineFavorite className={constructIconClassName()} />}
-
-      {!checkstate && iconType?.type.name === "MdOutlineFavorite" && 
-        <MdOutlineFavoriteBorder className={constructIconClassName()} />}
-
-      {checkstate && iconType?.type.name === "MdTurnedInNot" && 
-        <MdTurnedIn className={constructIconClassName()} />}
-
-      {!checkstate && iconType?.type.name === "MdTurnedInNot" && 
-        <MdTurnedInNot className={constructIconClassName()} />}
+      <span className={constructIconClassName()}>
+        {checkstate ? checkedIcon : icon}
+      </span>
     </label>
   );
 };

@@ -172,6 +172,13 @@ $variants: ("contained", "outlined", "text");
   user-select: none;
 }
 
+.nofill svg {
+  fill: blue; //TODO correct color 
+}
+.filled svg {
+  fill: red; //TODO correct color 
+}
+
 @keyframes rippleEffect {
   0% {
     width:0px;
