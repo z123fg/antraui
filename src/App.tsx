@@ -22,8 +22,8 @@ function App() {
         <Checkbox onClick={()=>{console.log("clicked")}} color="primary" size="small" variant="contained" disabled />
         <Checkbox onClick={()=>{console.log("clicked")}} color="default" size="large" variant="outlined" />
         <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled />
-        <Checkbox onClick={()=>{console.log("clicked")}} color="primary" variant="contained" />
+        <Checkbox onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled icon="favorite"/>
+        <Checkbox onClick={()=>{console.log("clicked")}} color="primary" variant="contained" icon="bookmark"/>
       </div>
     </>
   );
