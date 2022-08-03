@@ -1,19 +1,13 @@
 @use "../../scss/variable";
 @use "../../scss/mixin";
 
-.antraUI-Accordion-container p {
-  margin: 0;
-}
+$accordion-filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2))
+drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14))
+drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
+// $accordion-drawer-animation: ;
+// $accordion-transition: ;
 
-// typography
-.antraUI-Accordion-summary-typography {
-  width: 40%;
-  font-family: variable.$font-family;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-}
-.antraUI-Accordion-detail-typography {
+@mixin lg-accordion-typography {
   font-family: variable.$font-family;
   letter-spacing: 0.15px;
   font-style: normal;
@@ -21,8 +15,8 @@
   font-weight: 400;
   font-size: 16px;
 }
-.antraUI-Accordion-summary-subtitle-typography {
-  width: 45%;
+
+@mixin sm-accordion-typography {
   font-family: variable.$font-family;
   letter-spacing: 0.14px;
   font-style: normal;
@@ -31,43 +25,69 @@
   font-size: 15px;
 }
 
+@mixin accordion-gutter {
+  padding: 0 16px;
+  margin: 16px 0;
+}
+
+// typography
+.antraUI-Accordion-container p {
+  margin: 0;
+}
+.antraUI-Accordion-summary-typography {
+  @include sm-accordion-typography;
+  width: 40%;
+}
+.antraUI-Accordion-detail-typography {
+  @include lg-accordion-typography;
+  width: 100%;
+}
+.antraUI-Accordion-summary-subtitle-typography {
+  @include sm-accordion-typography;
+  width: 45%;
+}
+
 // containers
 .antraUI-Accordion-container {
   width: 100%;
+
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: space-between;
-  filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
-}
-.antraUI-Accordion-container:first-of-type {
-  border-radius: 4px 4px 0px 0px;
-}
-.antraUI-Accordion-container:last-of-type {
-  border-radius: 0px 0px 4px 4px ;
+  flex-direction: column;
+
+  filter: $accordion-filter;
+
+  &:first-of-type {
+    border-radius: 4px 4px 0px 0px;
+  }
+  &:last-of-type {
+    border-radius: 0px 0px 4px 4px;
+  }
 }
 
 .antraUI-Accordion-summary-container {
+  @include accordion-gutter;
+
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  justify-content: space-between;
+
   cursor: pointer;
-  padding: 0 16px;
-  margin: 16px 0;
 }
 
 .antraUI-Accordion-detail-container {
-  padding: 0 16px;
-  margin: 16px 0;
+  @include accordion-gutter;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.6s ease;
 }
 
 // wrappers
 .antraUI-Accordion-icon {
-  display: flex;
   height: 24px;
   width: 24px;
-  svg {
-    align-self: flex-start;
-    padding-bottom: 8px;
-  }
+  transition: transform 0.6s ease;
 }
+
+// animation

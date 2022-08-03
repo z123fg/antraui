@@ -1,9 +1,9 @@
 //
 // COMPONENT FOR TESTING PURPOSES ONLY
-// 
+//
 
 import { FC } from "react";
-import MyAccordion from "../MyAccordion"
+import MyAccordion from "../MyAccordion";
 
 const UserExpandIcon: React.FC = () => {
   return (
@@ -37,26 +37,24 @@ const accordionData = [
 ];
 
 const MyAccordionParent: FC = () => {
-
-
-  return(
-    <div style={{ display: "block", width: 800, marginTop: 20 }}>
-    {accordionData.map((tab) => (
-      <MyAccordion
-        key={tab.id}
-        summary={tab.summary}
-        detail={tab.detail}
-        // variant
-        // isExpanded={true}
-        // disabled={true}
-        // expandIcon={<UserExpandIcon />}
-        // bgColor
-        // bgColorDisabled
-        // color
-        // colorSecondary
-      />
-    ))}
-  </div>
-  )
-}
+  return (
+    <div style={{ display: "block", maxWidth: 800, marginTop: 20 }}>
+      {accordionData.map((tab) => (
+        <MyAccordion
+          key={tab.id}
+          summary={tab.summary}
+          detail={tab.detail}
+          // variant="controlled"
+          // isExpanded={true}
+          // disabled={true}
+          // expandIcon={<UserExpandIcon />}
+          // bgColor="red"
+          // bgColorDisabled=""
+          // color=""
+          // colorSecondary=""
+        />
+      ))}
+    </div>
+  );
+};
 export default MyAccordionParent;
