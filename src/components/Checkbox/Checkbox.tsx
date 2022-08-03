@@ -2,7 +2,7 @@ import React from "react";
 import { FC, MouseEvent, ReactNode, useEffect, useState } from "react";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
-type ButtonColor = "primary" | "secondary" | "default";
+type CheckboxColor = "primary" | "secondary" | "default";
 
 type checkboxSize = "small" | "medium" | "large";
 
@@ -12,7 +12,7 @@ interface ICheckboxProps {
   /**
    * customize the color of the checkbox
    */
-  color?: ButtonColor;
+  color?: CheckboxColor;
   /**
    * customize the size of the checkbox
    */
@@ -100,15 +100,19 @@ const Checkbox: FC<ICheckboxProps> = ({
   }, [clickPosition]);
 
   const constructClassName: () => string = () => {
-    const colorVariantCls = `checkbox-${color}-${variant}`;
+    const colorSizeCls = `checkbox-${color}-${size}`;
     const sizeCls = `checkbox-${size}`;
-    return ["checkbox", colorVariantCls, sizeCls].join(" ");
+    return ["checkbox", colorSizeCls, sizeCls].join(" ");
   };
   const constructIconClassName: () => string = () => {
-    const colorVariantCls = `checkbox--icon-${color}-${variant}`;
+    const colorSizeCls = `checkbox--icon-${color}-${size}`;
     const sizeCls = `checkbox--icon-${size}`;
-    const filled = checkstate ? `filled` : `nofill`;
-    return ["checkbox--icon", colorVariantCls, sizeCls, filled].join(" ");
+    const dis = disabled ? `checkbox--icon-${size}-disabled` : "";
+    if (disabled) {
+      return ["checkbox--icon", sizeCls, dis].join(" ");
+    } else {
+      return ["checkbox--icon", colorSizeCls, sizeCls, dis].join(" ");
+    }
   };
 
   return (
@@ -121,6 +125,7 @@ const Checkbox: FC<ICheckboxProps> = ({
         onChange={() => {
           setCheck(!checkstate);
         }}
+        disabled={disabled}
       />
       <span className={constructIconClassName()}>
         {checkstate ? checkedIcon : icon}
