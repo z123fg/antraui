@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
-import "./Rating.scss";
+import "./Rating";
 
 type controllType = "controlled" | "read-only" | "disabled";
-type RatingSize = "small" | "medium" | "large";
+type RatingSizeCls = "small" | "medium" | "large";
 
 interface IRatingProps {
-    size?:RatingSize,
+    size?:RatingSizeCls,
     name?:controllType,
     maxItems?: number,
     iconType?:string,
@@ -17,7 +17,7 @@ const Rating:FC<IRatingProps> = ({size="medium", name="controlled", maxItems=5, 
     const [isRated, setIsRated ] = useState<boolean | null>(false);
     return (
         <div className="rating__container">
-            <h3>{name}</h3>
+            <p>{name} (not set yet), {size} (size style applied)</p>
 
             <div className="star__container">
                 {
@@ -34,11 +34,8 @@ const Rating:FC<IRatingProps> = ({size="medium", name="controlled", maxItems=5, 
                                         setIsRated(true)
                                     }}
                                 />
-
                                 <svg  
-                                      className="star"
-                                      height="100px"
-                                      width="50px"
+                                      className={`star-${size}`}
                                       onMouseEnter={() => setHover(ratingValue)}
                                       onMouseOut={() => setHover(null)} 
                                       color={ratingValue <= ( hover || rating ) ? "#FFB400" : "lightgrey"}
@@ -48,11 +45,10 @@ const Rating:FC<IRatingProps> = ({size="medium", name="controlled", maxItems=5, 
                                     >
                                       <path
                                             fill={ratingValue <= ( hover || rating ) ? "#FFB400" : "none"}
-                                            stroke={ratingValue <= ( hover || rating ) ? "#FFB400" : "#999999"} 
+                                            stroke={ratingValue <= ( hover || rating ) ? "#FFB400" : "#999"} 
                                             d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
                                         />
                                 </svg>
-                               
                             </label>
                         )
                     })

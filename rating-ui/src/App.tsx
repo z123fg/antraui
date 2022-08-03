@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.scss';
 import Rating from './components/Rating/Rating';
 
 function App() {
   return (
     <div className="App">
-       <Rating /> 
+       <Rating size="small" /> 
+       <Rating size="medium" /> 
+       <Rating size="large" /> 
     </div>
   );
 }
