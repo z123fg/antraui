@@ -1,0 +1,10 @@
+@use "../../scss/variable";
+@use "../../scss/mixin";
+
+li:hover{
+    color:red
+}
+
+.drawer-toggle:checked{
+    color:blue
+}
