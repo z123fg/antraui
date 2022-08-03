@@ -1,0 +1,50 @@
+@use "../../sass/variable";
+@use "../../sass/mixin";
+
+.rating__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height:100vh;
+  }
+
+
+.star__container {
+    display:flex;
+    gap: 10px;
+
+    input[type="radio"] {
+        display:none;
+    }
+}  
+
+
+.star {
+    cursor: pointer;
+}
+
+
+$star-width-map: ( 
+    "small-width": "15px",
+    "medium-width": "20px",
+    "large-width": "25px",
+);
+
+$star-height-map: ( 
+    "small-height": "8px",
+    "medium-height": "10px",
+    "large-height": "12px",
+);
+
+.small {
+    width: map-get($star-width-map, small-width);
+    height: map-get($star-height-map, small-height);
+}
+
+.medium {
+    width: map-get($star-width-map, medium-width);
+    height: map-get($star-height-map, medium-height);
+}
+
+
