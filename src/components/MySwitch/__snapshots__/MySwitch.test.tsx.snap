@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MySwitch test cases snapshot test for MySwitch 1`] = `
+<DocumentFragment>
+  <div
+    class="switch "
+    data-testid="MySwitch--container"
+  >
+    <div
+      class="switch-medium-off"
+      data-testid="MySwitch--switch"
+    >
+      <div
+        class="switch-track-wrapper"
+      >
+        <div
+          class="switch-track"
+        />
+      </div>
+      <div
+        class="switch-thumb-wrapper"
+      >
+        <div
+          class="switch-thumb"
+          data-testid="switch-thumb"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
