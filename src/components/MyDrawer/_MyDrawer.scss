@@ -139,3 +139,44 @@
 // }
 
 /***************** Bottom *******************/
+.button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  padding: 0px;
+  //top: 0px;
+  left: 100px;
+  margin-top: 700px;
+  background: linear-gradient(
+    to bottom,
+    gray,
+    gray 20%,
+    white 20%,
+    white 40%,
+    gray 40%,
+    gray 60%,
+    white 60%,
+    white 80%,
+    gray 80%,
+    gray 100%
+  );
+  transition: transform 1s;
+}
+
+#drawer {
+  min-width: 150vh;
+  min-height: 5vh;
+  position: absolute;
+  margin-top: 300px;
+  transition: transform 1s;
+  outline: darkgray solid 0.5mm;
+  background-color: beige;
+}
+
+.button:focus + #drawer {
+  transform: translateY(-300%);
+}
+
+.button:focus {
+  transform: translateY(-50px);
+}

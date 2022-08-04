@@ -30,7 +30,13 @@ const MyDrawer: FC<IMyDrawerProps> = ({
   return (
     <div>
       {/* <h1>My Drawer</h1> */}
+
+      {/* <nav className="btn-group">
+        <button className="button" id="button"></button>
+      </nav> */}
+
       <button className="button" id="button"></button>
+
       <nav id="drawer" className={constructClassName()}>
         <ul id="drawer-container">
           <li>Item One</li>
