@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState, MouseEvent, useRef, useLayoutEffect, useEffect } from 'react'
+import React, { FC, ChangeEvent, useState, useRef, useLayoutEffect, useEffect } from 'react'
 
 type SliderSize = 'small' | 'medium' | string
 
@@ -74,47 +74,47 @@ const MySlider: FC<IMySliderProps> = ({
   }, [])
 
   useEffect(() => {
-    const railLength = railEdge.right - railEdge.left
-    const coveredLength = mousePosition.left - railEdge.left
-    const newPercentage = coveredLength / railLength
-    let newValue = (max - min) * newPercentage
-    if (newValue % step >= step / 2) {
-      newValue = Math.floor(newValue / step) * step
-    } else {
-      newValue = (Math.floor(newValue / step) + 1) * step
+    if (mousePosition.left || mousePosition.top) {
+      const railLength = railEdge.right - railEdge.left
+      const coveredLength = mousePosition.left - railEdge.left
+      const newPercentage = coveredLength / railLength
+      let newValue = (max - min) * newPercentage
+      if (newValue % step >= step / 2) {
+        newValue = Math.floor(newValue / step) * step
+      } else {
+        newValue = (Math.floor(newValue / step) + 1) * step
+      }
+      if (newValue > max) {
+        newValue = max
+      }
+      if (newValue < min) {
+        newValue = min
+      }
+      setValues([newValue])
     }
-    if (newValue > max) {
-      newValue = max
-    }
-    if (newValue < min) {
-      newValue = min
-    }
-    setValues([newValue])
   }, [mousePosition])
 
   const valueToPercent = (value: number, min: number, max: number) => {
     return value / (max - min) * 100
   }
 
-  const handleMouseDown = (e: MouseEvent<Element>) => {
-    console.log('mousedown', e)
+  const handlePointerDown = (e: React.PointerEvent) => {
+    (e.target as HTMLSpanElement).setPointerCapture(e.pointerId)
     setRecordingMove(true)
   }
 
-  const handleMouseMove = (e: MouseEvent<Element>) => {
+  const handlePointerUp = (e: React.PointerEvent) => {
+    (e.target as HTMLSpanElement).releasePointerCapture(e.pointerId)
+    setRecordingMove(false)
+  }
+
+  const handlePointerMove = (e: React.PointerEvent) => {
     if (recordingMove) {
       setMousePosition({
         left: e.clientX,
         top: e.clientY
       })
     }
-  }
-
-  const handleMouseUp = (e: MouseEvent<Element>) => {
-    console.log('mouseup', e)
-    //change value
-    setRecordingMove(false)
-    
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -128,9 +128,9 @@ const MySlider: FC<IMySliderProps> = ({
   return (
     <span
       className="slider-root slider-root--horizontal"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerMove={handlePointerMove}
     >
       <span className="slider-rail slider-rail--horizontal" ref={railEl}/>
       <span
