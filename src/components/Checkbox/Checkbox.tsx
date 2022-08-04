@@ -8,36 +8,18 @@ type checkboxSize = "small" | "medium" | "large";
 
 type ButtonVariant = "contained" | "outlined" | "text";
 
+type LabelPlacement = "top" | "bottom" | "start" | "end";
 interface ICheckboxProps {
-  /**
-   * customize the color of the checkbox
-   */
   color?: CheckboxColor;
-  /**
-   * customize the size of the checkbox
-   */
   size?: checkboxSize;
-  /**
-   * customize the variant style of the checkbox
-   */
   variant?: ButtonVariant;
-  /**
-   * used to disable the checkbox
-   */
   disabled?: boolean;
-  /**
-   * the inner text of the checkbox
-   */
   children?: ReactNode;
-  /**
-   * event handler for the click event of the checkbox
-   */
   checked?: boolean;
-  /**
-   * customize the icon to be checked
-   */
   icon?: ReactNode;
   checkedIcon?: ReactNode;
+  label?: String;
+  labelPlacement?: LabelPlacement;
   onClick?: (event: MouseEvent) => void;
 }
 
@@ -56,6 +38,8 @@ const Checkbox: FC<ICheckboxProps> = ({
   checked = false,
   icon = <MdCheckBoxOutlineBlank />,
   checkedIcon = <MdCheckBox />,
+  label = "",
+  labelPlacement = "end",
   children,
   onClick,
 }) => {
@@ -99,6 +83,9 @@ const Checkbox: FC<ICheckboxProps> = ({
     }
   }, [clickPosition]);
 
+  const constructLabelClassName: () => string = () => {
+    return `checkbox--label-${labelPlacement}`;
+  };
   const constructClassName: () => string = () => {
     const colorSizeCls = `checkbox-${color}-${size}`;
     const sizeCls = `checkbox-${size}`;
@@ -116,19 +103,29 @@ const Checkbox: FC<ICheckboxProps> = ({
   };
 
   return (
-    <label htmlFor="checkbox">
-      <input
-        name="checkbox"
-        type="checkbox"
-        className={constructClassName()}
-        checked={checkstate}
-        onChange={() => {
+    <label htmlFor="checkbox" className={`checkbox--container-${labelPlacement}`}>
+      <span className="checkbox--content">
+        <input
+          name="checkbox"
+          type="checkbox"
+          className={constructClassName()}
+          checked={checkstate}
+          onChange={() => {
+            setCheck(!checkstate);
+          }}
+          disabled={disabled}
+        />
+        <span className={constructIconClassName()}>
+          {checkstate ? checkedIcon : icon}
+        </span>
+      </span>
+      <span
+        className={constructLabelClassName()}
+        onClick={() => {
           setCheck(!checkstate);
         }}
-        disabled={disabled}
-      />
-      <span className={constructIconClassName()}>
-        {checkstate ? checkedIcon : icon}
+      >
+        {label}
       </span>
     </label>
   );

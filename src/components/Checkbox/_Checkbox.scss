@@ -22,13 +22,13 @@ $color-map: (
   ),
 );
 
-@mixin color-size-class($color, $size) {
+@mixin color-size-class-label($color, $size, $labelPlace) {
   .checkbox-#{$color}-#{$size} {
     cursor: pointer;
     position: absolute;
     opacity: 0;
-    margin: 0;
-    padding: 0;
+    margin: 9px;
+    padding: 9px;
     z-index: 1;
     @if $size == "small" {
       height: variable.$small-box-size;
@@ -44,8 +44,10 @@ $color-map: (
   .checkbox-#{$color}-#{$size}:disabled {
     cursor: default;
   }
+
   .checkbox--icon-#{$color}-#{$size} svg {
     fill: map-get(map-get($color-map, $color), "default");
+    padding: 9px;
     @if $size == "small" {
       position: absolute;
       height: variable.$small-box-size;
@@ -62,6 +64,7 @@ $color-map: (
   }
   .checkbox--icon-#{$size}-disabled svg {
     fill: variable.$disabled-color;
+    padding: 9px;
     @if $size == "small" {
       position: absolute;
       height: 15px;
@@ -76,20 +79,55 @@ $color-map: (
       width: 21px;
     }
   }
-}
+  .checkbox--container-#{$labelPlace} {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    @if $labelPlace == "end" {
+      flex-direction: row;
+    } @else if $labelPlace == "top" {
+      flex-direction: column-reverse;
+    } @else if $labelPlace == "start" {
+      flex-direction: row-reverse;
+    } @else if $labelPlace == "bottom" {
+      flex-direction: column;
+    }
+  }
+  .checkbox--content {
+    display: inline-flex;
+  }
+  .checkbox--label-#{$labelPlace} {
+    display: inline-flex;
+    @if $labelPlace == "end" {
 
-$colors: ("primary", "secondary", "default");
-$sizes: ("small", "medium", "large");
+    } @else if $labelPlace == "top" {
 
-@mixin generate-color-size-classes {
-  @each $size in $sizes {
-    @each $color in $colors {
-      @include color-size-class($color, $size);
+    } @else if $labelPlace == "start" {
+
+    } @else if $labelPlace == "bottom" {
+      
     }
   }
 }
 
-@include generate-color-size-classes();
+$colors: ("primary", "secondary", "default");
+$sizes: ("small", "medium", "large");
+$labelPlacement: ("end", "top", "start", "bottom");
+
+@mixin generate-color-size-class-labels {
+  @each $size in $sizes {
+    @each $color in $colors {
+      @each $labelPlace in $labelPlacement {
+        @include color-size-class-label($color, $size, $labelPlace);
+      }
+    }
+  }
+}
+
+@include generate-color-size-class-labels();
 
 .checkbox span {
   user-select: none;

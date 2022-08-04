@@ -22,6 +22,10 @@ function App() {
       <div style={{display:"flex", gap:"100px"}}>
         <Checkbox color="primary" disabled />
         <Checkbox color="primary" size='large' />
+        <Checkbox color="primary" label="End" size='small' />
+        <Checkbox color="primary" label="Start" labelPlacement='start' size='small' />
+        <Checkbox color="primary" label="Top" labelPlacement='top' size='small' />
+        <Checkbox color="primary" label="Bottom" labelPlacement='bottom' size='small' />
         <Checkbox color="secondary" size='small' />
         <Checkbox color="primary" size='large' disabled icon={<MdOutlineFavoriteBorder />} checkedIcon={<MdOutlineFavorite />} />
         <Checkbox color="secondary" icon={<MdTurnedInNot />} checkedIcon={<MdTurnedIn />} />
