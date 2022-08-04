@@ -16,17 +16,32 @@ function App() {
       <MyButton onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled>SUBMIT</MyButton>
       <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton>
       </div>
-      <div style={{display:"flex", flexDirection:"column", border:'1px solid black', width:'auto'}}>
-        <label>Normal Rating</label>
-        <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={1}/>
+      <div style={{display:"flex", flexDirection:"column", border:'1px solid black', width:'fit-content'}}>
+        <label>Normal Rating - Small</label>
+        <MyRating 
+        onValueChange={(newValue)=>{console.log(newValue)}} 
+        precision={1}
+        size="small"/>
+        <label>Normal Rating - Medium</label>
+        <MyRating 
+        onValueChange={(newValue)=>{console.log(newValue)}} 
+        precision={1}
+        size="medium"/>
+        <label>Normal Rating - Large</label>
+        <MyRating 
+        onValueChange={(newValue)=>{console.log(newValue)}} 
+        precision={1}
+        size="large"/>
         <label>Disabled</label>
         <MyRating onValueChange={(newValue)=>{console.log(newValue)}} value={2} precision={0.5} disabled/>
-        <label>Read-only (in-progress)</label>
+        <label>Disabled with Fraction</label>
+        <MyRating onValueChange={(newValue)=>{console.log(newValue)}} value={3.2} precision={0.5} disabled/>
+        <label>Read-only with value passed by devs</label>
         <MyRating onValueChange={(newValue)=>{console.log(newValue)}} value={3} precision={0.5} readOnly/>
         <label>Highlight Selected Only</label>
         <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={1} highlightSelectedOnly/>
         <label>Fraction Selection</label>
-        <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={0.5} size="Small"/>
+        <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={0.5}/>
       </div>
     </div>
   );

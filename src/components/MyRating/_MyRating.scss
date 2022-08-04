@@ -4,52 +4,34 @@
 .rate{
     display: flex;
     position: relative;
-    border: 1px solid pink;
+    justify-content: center;
     width: fit-content;
 }
 
 .rate > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
     border: 1px solid transparent;
     outline: none;
     cursor: pointer;
-    font-size: 2em;
-    width: 2em;
-    height: 2em;
+    color: #FFB400;
 }
-.disabled{
-    color: gray;
-}
-.disabled:active{
 
+.fill-disabled > svg {
+    color: #FFB400;
+    opacity: 0.55;
 }
-.icon:focus-visible{
-
+.half-filled-disabled{
+    color: #FFB400;
+    fill:rgba(0, 0, 0, 0.26);
+    opacity: 0.55;
 }
-.icon:active:not([disabled]){
-    border: 1px solid red;
-}
-.icon:hover:not([disabled]){
-    border: 1px solid red;
-}
-.icon:active{
-    border: 1px solid blue;
+.empty-disabled >svg {
+    color: rgba(0, 0, 0, 0.26);
+    opacity: 0.55;
 }
 .icon:read-only:hover{
     border: 1px solid transparent;
-}
-.iconFilled {
-    color: black;
-}
-.iconEmpty {
-    color: #ccc;
-}
-.sizeSmall{
-
-}
-.sizeMedium{
-
-}
-.sizeLarge{
-
 }
