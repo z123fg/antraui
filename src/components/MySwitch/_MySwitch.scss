@@ -1,203 +1,284 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+@use "../../scss/variable";
 
-.AntraUI-Switch-Container {
+$switch-light-color: #FAFAFA;
+$switch-dark-color: #000000;
+$switch-disabled-color: #BDBDBD;
+
+// The common css style
+.switch {
+    font-family: variable.$font-family;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 58px;
-    &.AntraUI-Switch-label {
-        width: 146px;
-        &.AntraUI-Switch-small {
-            width: 128px;
-        }
-    }
-    height: 38px;
-    gap: 10px;
     cursor: pointer;
-    &.AntraUI-Switch-isDisabled {
-        cursor: revert;
-    }
-
-    &:hover > .AntraUI-Switch > .AntraUI-Switch-HeadHover {
-        display: revert;
-    }
-    &.AntraUI-Switch-isDisabled > .AntraUI-Switch > .AntraUI-Switch-HeadHover {
-        display: none;
-    }
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
 }
 
-.AntraUI-Switch {
+.switch-track-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.switch-thumb-wrapper {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.2s ease-out;
+}
+
+.switch-thumb {
+    box-shadow: 0px 2px 1px rgba($switch-dark-color, 0.2), 0px 1px 1px rgba($switch-dark-color, 0.14), 0px 1px 3px rgba($switch-dark-color, 0.12);
+}
+
+// switch-color-map
+$color-map: (
+    primary: (default: #3F51B5,
+        hover: rgba(63, 81, 181, 0.08)),
+    secondary: (default: #F50057,
+        hover: rgba(245, 0, 87, 0.08)),
+    warning: (default: #ed6c02,
+        hover: rgba(#ed6c02, 0.08)),
+    default: (default: $switch-light-color,
+        hover: rgba($switch-dark-color, 0.04)),
+);
+
+@mixin smallSize {
+    width: 40px;
+    height: 24px;
     position: relative;
-}
-.AntraUI-Switch-Track {
-    width: 34px;
-    height: 14px;
-    &.AntraUI-Switch-small {
-        width: 26px;
-        height: 10px;
-    }
-    border-radius: 7px;
-    opacity: 50%;
 
-    &.AntraUI-Switch-primary {
-        background-color: #3F51B5;
-    }
-    &.AntraUI-Switch-secondary {
-        background-color: #F50057;
-    }
-    &.AntraUI-Switch-default {
-        background-color: #000000;
-    }
+    .switch-track-wrapper {
+        padding: 7px;
 
-    &.AntraUI-Switch-notChecked {
-        background-color: #000000;
-        opacity: 38%;
-    }
-
-    &.AntraUI-Switch-isDisabled {
-        opacity: 12%;
-        background-color: #000000;
-    }
-}
-.AntraUI-Switch-Head {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    &.AntraUI-Switch-small {
-        width: 16px;
-        height: 16px;
-    }
-    border-radius: 10px;
-    top: -3px;
-    left:0px;
-    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s;
-
-    &.AntraUI-Switch-primary {
-        background-color: #3F51B5;
-    }
-    &.AntraUI-Switch-secondary {
-        background-color: #F50057;
-    }
-    &.AntraUI-Switch-default {
-        background-color: #FAFAFA;
-    }
-
-    &.AntraUI-Switch-isChecked {
-        &.AntraUI-Switch-medium {
-            transform: translate(14px, 0);
-        }
-        &.AntraUI-Switch-small {
-            transform: translate(10px, 0);
-        }
-    }
-    &.AntraUI-Switch-notChecked {
-        transform: translate(0px, 0);
-        background-color: #FAFAFA;
-        &.AntraUI-Switch-secondary {
-            background-color: #BDBDBD;
+        .switch-track {
+            width: 26px;
+            height: 10px;
+            border-radius: 5px;
+            opacity: 0.5;
         }
     }
 
-    &.AntraUI-Switch-isDisabled {
-        background-color: #BDBDBD;
-    }
-}
-.AntraUI-Switch-Ripple {
-    position: absolute;
-    background-color: #151b3a;
-    &.AntraUI-Switch-secondary {
-        background-color: #750029;
-    }
-    &.AntraUI-Switch-isChecked {
-        opacity: 4%;
-        background-color: #000000;
-    } 
-    &.AntraUI-Switch-medium {
-        animation: SwitchRippleEffect 0.4s linear;
-    }
-    &.AntraUI-Switch-small {
-        animation: SwitchRippleEffectSmall 0.4s linear;
-    }
-    border-radius: 50%;
-} 
-@keyframes SwitchRippleEffect {
-    0% {
-        width:0%;
-        height:0%;
-        top: 50%;
-        left: 50%;
-        opacity: 0.3;
-    }
-    100%{
-        width:200%;
-        height:200%;
-        top: -50%;
-        left: -50%;
-        opacity: 0;
-    }
-}
-@keyframes SwitchRippleEffectSmall {
-    0% {
-        width:0%;
-        height:0%;
-        top: 50%;
-        left: 50%;
-        opacity: 0.3;
-    }
-    100%{
-        width:150%;
-        height:150%;
-        top: -25%;
-        left: -25%;
-        opacity: 0;
-    }
-}
-.AntraUI-Switch-HeadHover {
-    position: absolute;
-    display: none;
-    width: 38px;
-    height: 38px;
-    top: -11px;
-    left:-9px;
-    &.AntraUI-Switch-small {
+    .switch-thumb-wrapper {
         width: 24px;
         height: 24px;
-        top: -7px;
-        left: -4px;
-    }
-    border-radius: 50%;
-    opacity: 8%;
-    background-color: #3F51B5;
-    &.AntraUI-Switch-secondary {
-        background-color: #F50057;
-    }
-    transition: transform 0.2s;
+        padding: 4px;
+        border-radius: 19px;
 
-    &.AntraUI-Switch-isChecked {
-        &.AntraUI-Switch-medium {
-            transform: translate(14px, 0);
+        .switch-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 10px;
         }
-        &.AntraUI-Switch-small {
-            transform: translate(10px, 0);
-        }
-    }
-    &.AntraUI-Switch-notChecked {
-        transform: translate(0px, 0);
-    }
-    &.AntraUI-Switch-notChecked {
-        opacity: 4%;
-        background-color: #000000;
     }
 }
-.AntraUI-Switch-Label {
-    flex: 1;
-    text-align: center;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    font-style: normal;
-    display: flex;
-    align-items: center;
-    color: rgba(0, 0, 0, 0.87);
+
+@mixin mediumSize {
+    width: 58px;
+    height: 38px;
+    position: relative;
+
+    .switch-track-wrapper {
+        padding: 12px;
+
+        .switch-track {
+            width: 34px;
+            height: 14px;
+            border-radius: 7px;
+            opacity: 0.5;
+        }
+    }
+
+    .switch-thumb-wrapper {
+        width: 38px;
+        height: 38px;
+        padding: 9px;
+        border-radius: 19px;
+
+        .switch-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+        }
+    }
+}
+
+// Generate style for checked color switch
+@mixin color-checked-class($color, $size) {
+    .switch-#{$color}-#{$size} {
+        @if $size =="medium" {
+            @include mediumSize;
+
+            .switch-thumb-wrapper {
+                transform: translateX(20px);
+            }
+        }
+
+        @else {
+            @include smallSize;
+
+            .switch-thumb-wrapper {
+                transform: translateX(16px);
+            }
+        }
+
+        @if $color =='default' {
+            .switch-track {
+                background-color: $switch-dark-color;
+            }
+        }
+
+        @else {
+            .switch-track {
+                background-color: map-get(map-get($color-map, $color), "default");
+
+            }
+        }
+
+        .switch-thumb-wrapper .switch-thumb {
+            background-color: map-get(map-get($color-map, $color), "default");
+        }
+
+        &:hover {
+            .switch-thumb-wrapper {
+                background-color: map-get(map-get($color-map, $color), "hover");
+            }
+        }
+    }
+}
+
+// Generate style for off switch
+@mixin switchOff($size) {
+    .switch-#{$size}-off {
+        @if $size =="medium" {
+            @include mediumSize;
+        }
+
+        @else {
+            @include smallSize;
+
+        }
+
+        .switch-track {
+            background-color: $switch-dark-color;
+            opacity: 0.38;
+
+        }
+
+        .switch-thumb {
+            background-color: $switch-light-color;
+        }
+
+        &:hover {
+            .switch-thumb-wrapper {
+                background-color: rgba($switch-dark-color, 0.04);
+            }
+        }
+    }
+}
+
+$colors: (
+    "primary",
+    "secondary",
+    "warning",
+    "default"
+);
+$size: (
+    "small",
+    "medium"
+);
+
+// Generate animations for switch change
+@mixin color-keyframes($color, $size) {
+    @if $size =='medium' {
+        @keyframes #{$color}-#{$size}-effect {
+            0% {
+                outline: 2px solid rgba(map-get(map-get($color-map, $color), "default"), 0.4);
+            }
+
+            50% {
+                outline: 5px solid rgba(map-get(map-get($color-map, $color), "default"), 0.2);
+            }
+
+            100% {
+                outline: 9px solid rgba(map-get(map-get($color-map, $color), "default"), 0);
+            }
+        }
+    }
+
+    @else {
+        @keyframes #{$color}-#{$size}-effect {
+            0% {
+                outline: 1px solid rgba(map-get(map-get($color-map, $color), "default"), 0.4);
+            }
+
+            50% {
+                outline: 2px solid rgba(map-get(map-get($color-map, $color), "default"), 0.2);
+            }
+
+            100% {
+                outline: 4px solid rgba(map-get(map-get($color-map, $color), "default"), 0);
+            }
+        }
+    }
+}
+
+@keyframes Off-medium-effect {
+    0% {
+        outline: 2px solid rgba($switch-light-color, 0.4);
+    }
+
+    50% {
+        outline: 5px solid rgba($switch-light-color, 0.2);
+    }
+
+    100% {
+        outline: 9px solid rgba($switch-light-color, 0);
+    }
+}
+
+@keyframes Off-small-effect {
+    0% {
+        outline: 1px solid rgba($switch-light-color, 0.3);
+    }
+
+    50% {
+        outline: 2px solid rgba($switch-light-color, 0.1);
+    }
+
+    100% {
+        outline: 4px solid rgba($switch-light-color, 0);
+    }
+}
+
+
+@mixin generate-color-checked-classes {
+    @each $size in $size {
+        @include switchOff($size);
+
+        @each $color in $colors {
+            @include color-checked-class($color, $size);
+            @include color-keyframes($color, $size);
+        }
+    }
+}
+
+@include generate-color-checked-classes();
+
+
+.switch-disabled {
+    pointer-events: none;
+    cursor: none;
+    color: rgba($switch-dark-color, 0.36);
+
+    .switch-track {
+        background-color: rgba($switch-dark-color, 0.36);
+    }
+
+    .switch-thumb-wrapper .switch-thumb {
+        background-color: $switch-disabled-color;
+    }
 }
