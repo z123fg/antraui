@@ -1,18 +1,24 @@
 @use "../../scss/variable";
 @use "../../scss/mixin";
 
+.rate{
+    display: flex;
+    position: relative;
+    border: 1px solid pink;
+    width: fit-content;
+}
+
 .rate > button {
     background-color: transparent;
     border: 1px solid transparent;
     outline: none;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 2em;
     width: 2em;
     height: 2em;
-    line-height: 2em;
 }
-.disabled:hover{
-
+.disabled{
+    color: gray;
 }
 .disabled:active{
 
@@ -21,16 +27,19 @@
 
 }
 .icon:active:not([disabled]){
-  border: 1px solid red;
+    border: 1px solid red;
 }
 .icon:hover:not([disabled]){
-
+    border: 1px solid red;
 }
-.icon:read-only:not([disabled]){
-
+.icon:active{
+    border: 1px solid blue;
+}
+.icon:read-only:hover{
+    border: 1px solid transparent;
 }
 .iconFilled {
-    color: yellow;
+    color: black;
 }
 .iconEmpty {
     color: #ccc;
