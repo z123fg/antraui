@@ -12,7 +12,7 @@ describe("MySwitch test cases", () => {
         const switchEl = screen.queryByTestId("AntraUI-Switch-Container");
         expect(switchEl).toBeInTheDocument();
     })
-
+ 
     test("MySwitch should change its label based on label props", () => {
         render(<MySwitch label="Switch" />)
         const switchEl = screen.queryByText("Switch");

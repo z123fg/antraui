@@ -57,7 +57,7 @@ const MySwitch: FC<IMySwitchProps> = ({
                 </div>
             )
             setRippleArr(prev=>[...prev, newRipple]);
-            onChange?.(e);
+            onChange?.(e); 
         }
     }
     return (

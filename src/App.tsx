@@ -23,6 +23,6 @@ function App() {
       <MySwitch size={"medium"} color={"default"} checked={testSwitch} onChange={(e: MouseEvent) => {setTestSwitch(!testSwitch)}}/>
     </div>
   );
-}
+} 
 
 export default App;
