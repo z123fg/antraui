@@ -1,5 +1,27 @@
 @use '../../scss/variable';
 
+@mixin root($orientation) {
+  border-radius: 12px;
+  box-sizing: content-box;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+  color: variable.$primary-color;
+  // width should be defined by container
+  flex: 0 0 300px;
+
+  @if $orientation == 'horizontal' {
+    height: 4px;
+    width: 100%;
+    padding: 13px 0;
+  } @else {
+    height: 100%;
+    width: 4px;
+    padding: 0 13px;
+  }
+}
+
 @mixin rail($orientation) {
   display: block;
   position: absolute;
@@ -87,13 +109,12 @@
 }
 
 .slider-root {
-  border-radius: 12px;
-  box-sizing: content-box;
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  touch-action: none;
-  color: variable.$primary-color;
+  &.slider-root--horizontal {
+    @include root('horizontal');
+  }
+  &.slider-root--vertical {
+    @include root('horizontal');
+  }
 
   .slider-rail {
     &.slider-rail--horizontal {
@@ -117,5 +138,19 @@
     &.slider-thumb--horizontal {
       @include thumb('horizontal');
     }
+  }
+
+  .slider-thumb__input {
+    border: 0px;
+    clip: rect(0px, 0px, 0px, 0px);
+    height: 100%;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0px;
+    position: absolute;
+    white-space: nowrap;
+    width: 100%;
+    direction: ltr;
+    
   }
 }

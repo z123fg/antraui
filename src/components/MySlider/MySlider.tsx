@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState } from 'react'
+import React, { FC, ChangeEvent, useState, MouseEvent, useRef, useLayoutEffect, useEffect } from 'react'
 
 type SliderSize = 'small' | 'medium' | string
 
@@ -44,7 +44,7 @@ interface IMySliderProps {
 }
 
 const MySlider: FC<IMySliderProps> = ({
-  value,
+  value = 50,
   size = 'medium',
   color,
   marks,
@@ -54,9 +54,71 @@ const MySlider: FC<IMySliderProps> = ({
   step = 1,
   onChange,
 }) => {
-  const [values, setValues] = useState(Array.isArray(value) ? value : [value]);
+  const [values, setValues] = useState<number[]>(Array.isArray(value) ? value : [value])
+  const [railEdge, setRailEdge] = useState({ left: 0, top: 0, right: 0, bottom: 0 })
+  const [mousePosition, setMousePosition] = useState({ left: 0, top: 0})
+  const [recordingMove, setRecordingMove] = useState(false)
+
+  const railEl = useRef<HTMLSpanElement>(null)
+
+  useLayoutEffect(() => {
+    if (railEl.current) {
+      const rect = railEl.current.getBoundingClientRect()
+      setRailEdge({
+        left: rect.x,
+        top: rect.y,
+        right: rect.x + rect.width,
+        bottom: rect.y + rect.height
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    const railLength = railEdge.right - railEdge.left
+    const coveredLength = mousePosition.left - railEdge.left
+    const newPercentage = coveredLength / railLength
+    let newValue = (max - min) * newPercentage
+    if (newValue % step >= step / 2) {
+      newValue = Math.floor(newValue / step) * step
+    } else {
+      newValue = (Math.floor(newValue / step) + 1) * step
+    }
+    if (newValue > max) {
+      newValue = max
+    }
+    if (newValue < min) {
+      newValue = min
+    }
+    setValues([newValue])
+  }, [mousePosition])
+
+  const valueToPercent = (value: number, min: number, max: number) => {
+    return value / (max - min) * 100
+  }
+
+  const handleMouseDown = (e: MouseEvent<Element>) => {
+    console.log('mousedown', e)
+    setRecordingMove(true)
+  }
+
+  const handleMouseMove = (e: MouseEvent<Element>) => {
+    if (recordingMove) {
+      setMousePosition({
+        left: e.clientX,
+        top: e.clientY
+      })
+    }
+  }
+
+  const handleMouseUp = (e: MouseEvent<Element>) => {
+    console.log('mouseup', e)
+    //change value
+    setRecordingMove(false)
+    
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, idx: number) => {
+    console.log('handle change called')
     const newValues = [...values]
     newValues[idx] = +e.target.value
     setValues(newValues)
@@ -64,17 +126,28 @@ const MySlider: FC<IMySliderProps> = ({
   }
 
   return (
-    <span className="slider-root">
-      <span className="slider-rail slider-rail--horizontal"/>
-      <span className="slider-track slider-track--horizontal"/>
+    <span
+      className="slider-root slider-root--horizontal"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
+      <span className="slider-rail slider-rail--horizontal" ref={railEl}/>
+      <span
+        className="slider-track slider-track--horizontal"
+        style={{ left: '0%', width: `${valueToPercent(values[0], min, max)}%`}}
+      />
       {values.map((value, index) => {
         return (
           <React.Fragment key={`slider-${index}`}>
-            <span className="slider-thumb slider-thumb--horizontal">
+            <span
+              className="slider-thumb slider-thumb--horizontal"
+              style={{ left: `${valueToPercent(values[index], min, max)}%`}}
+            >
               <input
                 type="range"
                 className="slider-thumb__input"
-                value={value}
+                value={values[index]}
                 onChange={(e) => handleChange(e, index)}
               />
             </span>
