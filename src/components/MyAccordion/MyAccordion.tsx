@@ -1,7 +1,9 @@
-import {
+import React, {
+  createContext,
   FC,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -9,7 +11,7 @@ import {
 
 type AccordianVariant = "simple" | "controlled" | "action";
 
-interface IMyAccordionProps {
+interface AccordionContextProps {
   // user customize summary
   summary?: string;
   // user customize sub-summary (controlled variant only)
@@ -32,11 +34,34 @@ interface IMyAccordionProps {
   expandIcon?: ReactNode;
   // disable accordion
   disabled?: boolean;
-  // onChange event
-  // onChange?: (evt: React.SyntheticEvent) => void;
-  // onClick event
-  // onClick?: () => void;
+  // children
+  children?: ReactNode;
+  // onSelect event
+  onSelect?: (evt: React.SyntheticEvent) => void;
+  // handleClick
+  handleClick?: () => void;
+  // height of detail Component
+  detailHeight?: string;
 }
+
+// class names
+const classNames = {
+  container: {
+    panel: "accordion__panel--container",
+    summary: "accordion__summary--container",
+  },
+  typography: {
+    summary: "accordion__summary--typography",
+    subSummary: "accordion__subSummary--typography",
+    detail: "accordion__detail--typography",
+  },
+  wrapper: {
+    icon: "accordion__icon--wrapper",
+    detail: "accordion__detail--wrapper",
+  },
+};
+
+// defaults
 
 const DefaultExpandIcon: FC = () => {
   return (
@@ -46,7 +71,6 @@ const DefaultExpandIcon: FC = () => {
   );
 };
 
-// defaults
 const defaultSummary = "Example Summary";
 const defaultSubSummary = "Example Sub-Summary";
 const defaultDetail = "Example Detail.";
@@ -54,13 +78,14 @@ const defaultBgColor = "rgba(255, 255, 255, 1)";
 const defaultBgColorDisabled = "rgba(0, 0, 0, 0.12)";
 const defaultColor = "rgba(0, 0, 0, 0.87)";
 const defaultColorSecondary = "rgba(0, 0, 0, 0.54)";
-const defaultVariant = "simple";
 const defaultExpandIcon = <DefaultExpandIcon />;
-// const defaultExpandedState = false;
 const defaultDisabledState = false;
 
-const MyAccordion: FC<IMyAccordionProps> = ({
-  //
+// Accordion Context
+
+const AccordionCtx = createContext<AccordionContextProps>({});
+
+const AccordionProvider: FC<AccordionContextProps> = ({
   summary = defaultSummary,
   subSummary = defaultSubSummary,
   detail = defaultDetail,
@@ -68,84 +93,230 @@ const MyAccordion: FC<IMyAccordionProps> = ({
   bgColorDisabled = defaultBgColorDisabled,
   color = defaultColor,
   colorSecondary = defaultColorSecondary,
-  variant = defaultVariant,
   expandIcon = defaultExpandIcon,
   disabled = defaultDisabledState,
-  // isExpanded,
-  // onChange,
-  // onClick,
-  //
+  children,
 }) => {
-  const [expandedState, setExpandedState] = useState(false);
-  const [detailHeight, setDetailHeight] = useState("0px");
+  const [expanded, expandedSet] = useState(false);
+  const [detailHeight, detailHeightSet] = useState("0px");
   const detailRef = useRef<HTMLParagraphElement>(null!);
 
   const handleClick = useCallback(() => {
-    if (disabled === false) {
-      setExpandedState(!expandedState);
+    if (!disabled) {
+      expandedSet(!expanded);
     }
-  }, [expandedState]);
+  }, [expanded]);
 
   useEffect(() => {
-    setDetailHeight(
-      expandedState ? `${detailRef.current?.scrollHeight + 32}px` : `0px`
+    detailHeightSet(
+      expanded ? `${detailRef.current?.scrollHeight + 32}px` : `0px`
     );
-  }, [expandedState]);
+  }, [expanded, detailRef]);
+
+  return (
+    <AccordionCtx.Provider
+      value={{
+        handleClick,
+        expanded,
+        detailHeight,
+        // defaults
+        summary,
+        subSummary,
+        detail,
+        bgColor,
+        bgColorDisabled,
+        color,
+        colorSecondary,
+        expandIcon,
+        disabled,
+      }}
+    >
+      {children}
+    </AccordionCtx.Provider>
+  );
+};
+
+// Variant Components
+
+const SimpleVariant: FC = () => {
+  const {
+    expanded,
+    summary,
+    detail,
+    bgColor,
+    bgColorDisabled,
+    color,
+    expandIcon,
+    disabled,
+    detailHeight,
+    handleClick,
+  } = useContext(AccordionCtx);
+
+  return (
+    <article
+      className={classNames.container.panel}
+      style={{
+        backgroundColor: disabled ? bgColorDisabled : bgColor,
+        marginBottom: expanded ? 16 : 0,
+      }}
+    >
+      <div onClick={handleClick} className={classNames.container.summary} style={{ color: color }}>
+        <p className={classNames.typography.summary}>{summary}</p>
+        <div
+          className={classNames.wrapper.icon}
+          style={{
+            fill: color,
+            transform: expanded ? "rotate(180deg)" : "",
+          }}
+        >
+          {expandIcon}
+        </div>
+      </div>
+      <div
+        className={classNames.wrapper.detail}
+        style={{
+          color: color,
+          maxHeight: detailHeight,
+          padding: expanded ? 16 : 0,
+        }}
+      >
+        <p className={classNames.typography.detail}>{detail}</p>
+      </div>
+    </article>
+  );
+};
+
+const ControlledVariant: FC = () => {
+  const {
+    expanded,
+    summary,
+    subSummary,
+    detail,
+    bgColor,
+    bgColorDisabled,
+    color,
+    colorSecondary,
+    expandIcon,
+    disabled,
+  } = useContext(AccordionCtx);
 
   return (
     <>
-      <article
-        className="antraUI-Accordion-container"
-        style={{
-          backgroundColor: disabled ? bgColorDisabled : bgColor,
-          marginBottom: expandedState ? 16 : 0,
-        }}
-      >
-        <div
-          onClick={handleClick}
-          className="antraUI-Accordion-summary-container"
-          style={{ color: color }}
-        >
-          <p className="antraUI-Accordion-summary-typography">{summary}</p>
-
-          {variant === "controlled" && (
-            <p
-              className="antraUI-Accordion-summary-subtitle-typography"
-              style={{ color: colorSecondary }}
-            >
-              {!expandedState && subSummary.length > 40
-                ? `${subSummary.substring(0, 40)}...`
-                : subSummary}
-            </p>
-          )}
-
-          <div
-            className="antraUI-Accordion-icon"
-            style={{
-              fill: color,
-              transform: expandedState ? "rotate(180deg)" : "",
-            }}
-          >
-            {expandIcon}
-          </div>
-        </div>
-
-        <div
-          className="antraUI-Accordion-detail-container"
-          style={{
-            color: color,
-            maxHeight: `${detailHeight}`,
-            padding: expandedState ? 16 : 0,
-          }}
-        >
-          {expandedState && (
-            <p ref={detailRef} className="antraUI-Accordion-detail-typography">
-              {detail}
-            </p>
-          )}
-        </div>
-      </article>
+      <h1>Controlled Component</h1>
+      <h3>{summary}</h3>
+      <h3>{subSummary}</h3>
+      <h3>{detail}</h3>
     </>
   );
 };
+
+const ActionVariant: FC<AccordionContextProps> = () => {
+  const {
+    expanded,
+    summary,
+    subSummary,
+    detail,
+    bgColor,
+    bgColorDisabled,
+    color,
+    colorSecondary,
+    expandIcon,
+    disabled,
+  } = useContext(AccordionCtx);
+
+  return (
+    <>
+      <h1>Action Component</h1>
+      <h3>{summary}</h3>
+      <h3>{subSummary}</h3>
+      <h3>{detail}</h3>
+    </>
+  );
+};
+
+const MyAccordion: FC<AccordionContextProps> = ({ variant }) => {
+  switch (variant) {
+    case "simple":
+      return (
+        <AccordionProvider>
+          <SimpleVariant />
+        </AccordionProvider>
+      );
+    case "controlled":
+      return (
+        <AccordionProvider>
+          <ControlledVariant />
+        </AccordionProvider>
+      );
+    case "action":
+      return (
+        <AccordionProvider>
+          <ActionVariant />
+        </AccordionProvider>
+      );
+    default:
+      return (
+        <AccordionProvider>
+          <SimpleVariant />
+        </AccordionProvider>
+      );
+  }
+};
 export default MyAccordion;
+
+// return (
+// <>
+
+// {/* <article
+//   className="antraUI-Accordion-container"
+//   style={{
+//     backgroundColor: disabled ? bgColorDisabled : bgColor,
+//     marginBottom: expandedState ? 16 : 0,
+//   }}
+// >
+//   <div
+//     onClick={handleClick}
+//     className="antraUI-Accordion-summary-container"
+//     style={{ color: color }}
+//   >
+//     <p className="antraUI-Accordion-summary-typography">{summary}</p>
+
+//     {variant === "controlled" && (
+//       <p
+//         className="antraUI-Accordion-summary-subtitle-typography"
+//         style={{ color: colorSecondary }}
+//       >
+//         {!expandedState && subSummary.length > 40
+//           ? `${subSummary.substring(0, 40)}...`
+//           : subSummary}
+//       </p>
+//     )}
+
+//     <div
+//       className="antraUI-Accordion-icon"
+// style={{
+//   fill: color,
+//   transform: expandedState ? "rotate(180deg)" : "",
+// }}
+//     >
+//       {expandIcon}
+//     </div>
+//   </div>
+
+//   <div
+//     className="antraUI-Accordion-detail-container"
+// style={{
+//   color: color,
+//   maxHeight: `${detailHeight}`,
+//   padding: expandedState ? 16 : 0,
+// }}
+//   >
+//     {expandedState && (
+//       <p ref={detailRef} className="antraUI-Accordion-detail-typography">
+//         {detail}
+//       </p>
+//     )}
+//   </div>
+// </article> */}
+// </>
+// );

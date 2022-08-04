@@ -31,24 +31,24 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 }
 
 // typography
-.antraUI-Accordion-container p {
-  margin: 0;
-}
-.antraUI-Accordion-summary-typography {
+.accordion__summary--typography {
   @include sm-accordion-typography;
   width: 40%;
+  margin: 0;
 }
-.antraUI-Accordion-detail-typography {
-  @include lg-accordion-typography;
-  width: 100%;
-}
-.antraUI-Accordion-summary-subtitle-typography {
+.accordion__subSummary--typography {
   @include sm-accordion-typography;
   width: 45%;
+  margin: 0;
+}
+.accordion__detail--typography {
+  @include lg-accordion-typography;
+  width: 100%;
+  margin: 0;
 }
 
 // containers
-.antraUI-Accordion-container {
+.accordion__panel--container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -66,7 +66,7 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
   }
 }
 
-.antraUI-Accordion-summary-container {
+.accordion__summary--container {
   @include accordion-gutter;
 
   display: flex;
@@ -76,18 +76,18 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
   cursor: pointer;
 }
 
-.antraUI-Accordion-detail-container {
+.accordion__detail--wrapper {
   display: block;
   max-width: 100%;
   transition: max-height 1s ease;
   overflow: auto;
 }
-.antraUI-Accordion-detail-container::-webkit-scrollbar {
+.accordion__detail--wrapper::-webkit-scrollbar {
   display: none;
 }
 
-// wrappers
-.antraUI-Accordion-icon {
+// icon
+.accordion__icon--wrapper {
   height: 24px;
   width: 24px;
   transition: transform 0.6s ease;

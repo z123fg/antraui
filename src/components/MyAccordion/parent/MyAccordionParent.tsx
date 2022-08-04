@@ -48,21 +48,20 @@ const MyAccordionParent: FC = () => {
   return (
     <div style={{ minHeight: "100vh" }}>
       <div style={{ maxWidth: 800, marginTop: 20 }}>
-        {accordionData.map((panel) => (
+        {/* {accordionData.map((panel) => (
           <MyAccordion
             variant="controlled"
             summary={panel.summary}
             subSummary={panel.subSummary}
             detail={panel.detail}
           />
-        ))}
+        ))} */}
       </div>
 
       <div style={{ maxWidth: 800, marginTop: 20 }}>
         <MyAccordion variant="simple" />
-        <MyAccordion variant="simple" />
-        <MyAccordion variant="simple" />
-        <MyAccordion variant="simple" />
+        <MyAccordion variant="controlled" />
+        <MyAccordion variant="action" />
       </div>
     </div>
   );
