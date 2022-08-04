@@ -1,38 +1,46 @@
-import { Children, FC, MouseEvent, ReactNode, useEffect, useState } from "react";
+import {
+  Children,
+  FC,
+  MouseEvent,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 
-interface IMyDrawerProps{
-    open?:boolean;
-    children?:ReactNode;
-    onClick?:(event:MouseEvent)=>void
+type DrawerDirection = "top" | "left" | "right" | "bottom";
+
+interface IMyDrawerProps {
+  open?: boolean;
+  direction?: DrawerDirection;
+  children?: ReactNode;
+  onClick?: (event: MouseEvent) => void;
 }
 
-const MyDrawer: FC<IMyDrawerProps>=({
-    open = false,
-    children,
-    onClick
-})=>{
+const MyDrawer: FC<IMyDrawerProps> = ({
+  open = false,
+  direction = "left",
+  children,
+  onClick,
+}) => {
+  const constructClassName: () => string = () => {
+    const drawerDir = `drawer-${direction}`;
+    return ["drawer", drawerDir].join(" ");
+  };
 
-  const constructClassName:()=>string = () => {
-    const showing = `drawer-${open}`;
-    return ["drawer", showing].join(" ")
-  }
+  return (
+    <div>
+      {/* <h1>My Drawer</h1> */}
+      <button className="button" id="button"></button>
+      <nav id="drawer" className={constructClassName()}>
+        <ul>
+          <li>Item One</li>
+          <li>Item Two</li>
+          <li>Item Three</li>
+          <li>Item Four</li>
+        </ul>
+      </nav>
+    </div>
+  );
+};
 
-    return (
-        <div>
-            {/* <input type="checkbox" id="drawer-toggle" name="drawer-toggle"/> */}
-            <label className="drawer-toggle" id="drawer-toggle-label">A</label>
-            <nav id="drawer" className={constructClassName()}>
-            <ul>
-                <li>Item one</li>
-                <li>Item two</li>
-                <li>Item three</li>
-                <li>Item four</li>
-            </ul>
-        </nav>
-        </div>
-        
-       
-    )
-}
-
-export default MyDrawer
+export default MyDrawer;
