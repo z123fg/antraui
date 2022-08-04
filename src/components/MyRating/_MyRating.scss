@@ -3,13 +3,44 @@
 
 .rate > button {
     background-color: transparent;
-    border: none;
+    border: 1px solid transparent;
     outline: none;
     cursor: pointer;
-  }
-  .on {
-    color: #000;
-  }
-  .off {
+    font-size: 1em;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+}
+.disabled:hover{
+
+}
+.disabled:active{
+
+}
+.icon:focus-visible{
+
+}
+.icon:active:not([disabled]){
+  border: 1px solid red;
+}
+.icon:hover:not([disabled]){
+
+}
+.icon:read-only:not([disabled]){
+
+}
+.iconFilled {
+    color: yellow;
+}
+.iconEmpty {
     color: #ccc;
-  }
+}
+.sizeSmall{
+
+}
+.sizeMedium{
+
+}
+.sizeLarge{
+
+}
