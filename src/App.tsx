@@ -7,7 +7,7 @@ import MySwitch from './components/MySwitch/MySwitch';
 
 
 function App() {
-  const [testSwitch, setTestSwitch] = useState<Boolean>(true)
+  const [testSwitch, setTestSwitch] = useState<boolean>(true)
   return (
     <div style={{display:"flex", gap:"10px"}}>
       <MySwitch size={"medium"} color={"primary"} checked={testSwitch} onChange={(e: MouseEvent) => {setTestSwitch(!testSwitch)}} label={"Switch Label"}/>
