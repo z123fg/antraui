@@ -7,6 +7,10 @@ $switch-disabled-color: #BDBDBD;
 // The common css style
 .switch {
     font-family: variable.$font-family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
     display: flex;
     justify-content: center;
     align-items: center;
