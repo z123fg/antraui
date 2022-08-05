@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox test cases snapshot test for Checkbox 1`] = `
+<DocumentFragment>
+  <label
+    class="checkbox--container-end"
+    for="checkbox"
+  >
+    <span
+      class="checkbox--content"
+    >
+      <input
+        class="checkbox checkbox-primary-medium checkbox-medium"
+        name="checkbox"
+        type="checkbox"
+      />
+      <span
+        class="checkbox--icon checkbox--icon-primary-medium checkbox--icon-medium "
+        data-testid="large-checkbox"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+      </span>
+    </span>
+    <span
+      class="checkbox--label-end"
+    />
+  </label>
+</DocumentFragment>
+`;

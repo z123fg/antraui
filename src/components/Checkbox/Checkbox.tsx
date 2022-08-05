@@ -115,7 +115,7 @@ const Checkbox: FC<ICheckboxProps> = ({
           }}
           disabled={disabled}
         />
-        <span className={constructIconClassName()}>
+        <span className={constructIconClassName()} data-testid="large-checkbox">
           {checkstate ? checkedIcon : icon}
         </span>
       </span>

@@ -21,8 +21,8 @@ function App() {
       <br />
       <div style={{display:"flex", gap:"100px"}}>
         <Checkbox color="primary" disabled />
-        <Checkbox color="primary" size='large' />
-        <Checkbox color="primary" label="End" size='small' />
+        <Checkbox color="primary" size='large' data-testid="large-checkbox"/>
+        <Checkbox color="primary" label="End" labelPlacement='end' size='small' />
         <Checkbox color="primary" label="Start" labelPlacement='start' size='small' />
         <Checkbox color="primary" label="Top" labelPlacement='top' size='small' />
         <Checkbox color="primary" label="Bottom" labelPlacement='bottom' size='small' />
