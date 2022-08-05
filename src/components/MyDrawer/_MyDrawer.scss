@@ -164,7 +164,7 @@
   transition: transform 1s;
 }
 
-#drawer {
+.drawer-bottom {
   min-width: 150vh;
   min-height: 5vh;
   position: fixed;
@@ -175,7 +175,7 @@
   visibility: hidden;
 }
 
-.button:focus + #drawer {
+#btn-group .button:focus .drawer-bottom {
   transform: translateY(-80%);
   visibility: visible;
 }

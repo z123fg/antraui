@@ -18,7 +18,7 @@ interface IMyDrawerProps {
 
 const MyDrawer: FC<IMyDrawerProps> = ({
   open = false,
-  direction = "left",
+  direction = "bottom",
   children,
   onClick,
 }) => {
@@ -29,11 +29,11 @@ const MyDrawer: FC<IMyDrawerProps> = ({
 
   return (
     <div>
-      {/* <div>
+      <div id="btn-group">
         <button className="button" id="button"></button>
-      </div> */}
+      </div>
 
-      <button className="button" id="button"></button>
+      {/* <button className="button" id="button"></button> */}
 
       <nav id="drawer" className={constructClassName()}>
         <ul id="drawer-container">
