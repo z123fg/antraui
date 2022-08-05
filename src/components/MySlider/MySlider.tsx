@@ -51,7 +51,7 @@ const MySlider: FC<IMySliderProps> = ({
   disabled,
   min = 0,
   max = 100,
-  step = 1,
+  step = 5,
   onChange,
 }) => {
   const [values, setValues] = useState<number[]>(Array.isArray(value) ? value : [value])
@@ -80,9 +80,9 @@ const MySlider: FC<IMySliderProps> = ({
       const newPercentage = coveredLength / railLength
       let newValue = (max - min) * newPercentage
       if (newValue % step >= step / 2) {
-        newValue = Math.floor(newValue / step) * step
+        newValue = Math.ceil(newValue / step) * step
       } else {
-        newValue = (Math.floor(newValue / step) + 1) * step
+        newValue = Math.floor(newValue / step) * step
       }
       if (newValue > max) {
         newValue = max
@@ -151,9 +151,9 @@ const MySlider: FC<IMySliderProps> = ({
                 onChange={(e) => handleChange(e, index)}
               />
             </span>
-            {/* <span className={clsx(classes.offset, className)} theme={theme} aria-hidden>
-              <span className={classes.circle}>
-                <span className={classes.label}>{value}</span>
+            {/* <span className="slider-valueLabel slider-valueLabelOpen" aria-hidden>
+              <span className="slider-valuelabelCircle">
+                <span className="slider-valueLabelLabel">{values[index]}</span>
               </span>
             </span> */}
           </React.Fragment>
