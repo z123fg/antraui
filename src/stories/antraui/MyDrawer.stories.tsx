@@ -12,5 +12,22 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof MyDrawer> = (args) => (
-  <MyDrawer {...args}>Submit</MyDrawer>
+  <MyDrawer {...args}></MyDrawer>
 );
+
+export const Left = Template.bind({});
+Left.args = {
+  direction: "left",
+};
+export const Right = Template.bind({});
+Right.args = {
+  direction: "right",
+};
+export const Top = Template.bind({});
+Top.args = {
+  direction: "top",
+};
+export const Bottom = Template.bind({});
+Bottom.args = {
+  direction: "bottom",
+};

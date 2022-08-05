@@ -144,7 +144,7 @@
   height: 50px;
   border: none;
   padding: 0px;
-  //top: 0px;
+  top: 0px;
   left: 100px;
   margin-top: 700px;
   background: linear-gradient(
@@ -160,23 +160,26 @@
     gray 80%,
     gray 100%
   );
+  position: fixed;
   transition: transform 1s;
 }
 
 #drawer {
   min-width: 150vh;
   min-height: 5vh;
-  position: absolute;
-  margin-top: 300px;
+  position: fixed;
+  margin-top: 700px;
   transition: transform 1s;
   outline: darkgray solid 0.5mm;
   background-color: beige;
+  visibility: hidden;
 }
 
 .button:focus + #drawer {
-  transform: translateY(-300%);
+  transform: translateY(-80%);
+  visibility: visible;
 }
 
 .button:focus {
-  transform: translateY(-50px);
+  transform: translateY(-80px);
 }
