@@ -43,7 +43,7 @@ const MyRating: FC<IMyRatingProps> = ({
     max = 5,
     disabled = false,
     readOnly = false,
-    precision = 0.5,
+    precision = 1,
     highlightSelectedOnly = false,
     icon = <StarRoundedIcon fontSize={size}/>,
     fractionIcon = <StarHalfRoundedIcon fontSize={size}/>,
@@ -114,9 +114,13 @@ const MyRating: FC<IMyRatingProps> = ({
     // STILL NEED TO WORK ON RENDER ICON BASED ON THE CONDITION BY CONDITIONALLY RENDER emptyIcon/icon
     return(
         <div 
+        data-testid="rating__container"
         className={`
-        ${classes}rate${disabled ? " disabled" : ""}
-        size-${size}${readOnly ? " read-only": ""}
+        rating__container
+        ${classes}
+        ${disabled ? " disabled" : ""}
+        size-${size}
+        ${readOnly ? " read-only": ""}
         `}
         ref={ratingContainerRef}
         >
@@ -124,43 +128,54 @@ const MyRating: FC<IMyRatingProps> = ({
         [...Array(max)].map((_, itemValue) => {
           itemValue += 1;    
           return (
-            <button
-              type="button"
-              key={itemValue}
-              disabled={disabled}
-              className={`
-              icon
-              ${disabled 
-                ? itemValue <= rating 
-                  ?"fill-disabled"
+            <div className={`rate`} key={itemValue}>
+              <label 
+              htmlFor={`rate-star-${itemValue}`}
+              style={{display:'none'}}
+              >{`${
+                itemValue <= rating 
+                  ?"filled-star"
                   : Math.abs(itemValue - rating) < 1
-                    ? "half-filled-disabled"
-                    : "empty-disabled"
-                : ""
-              }
-              `}
-              onClick={!readOnly ? (e) => handleClick(e, itemValue) : () => {}}
-              onMouseMove={!readOnly ? (e) => handleMouseEnter(e, itemValue): () => {}}
-              onMouseLeave={!readOnly ?(e) => handleMouseLeave(e, rating): () => {}}
-            >
-              {highlightSelectedOnly
-              ?
-               itemValue === rating ? icon : emptyIcon  
-              : !isHover
-                ? itemValue <= rating 
-                  ? icon
-                  :Math.abs(itemValue - rating) < 1  
-                    ? fractionIcon : emptyIcon
-                : itemValue <= hover 
-                  ? icon
-                  : Math.abs(itemValue - hover) < 1 
-                    ? fractionIcon
-                    : emptyIcon
-              }
-            </button>
-          );
-        })
-        }
+                    ? "filled-star" //half-filled-star 
+                    : "empty-star"
+                }`}</label>
+              <button
+                type="button"
+                id={`rate-star-${itemValue}`}
+                disabled={disabled}
+                data-testid={`star-${itemValue}`}
+                className={`
+                icon
+                ${disabled 
+                  ? itemValue <= rating 
+                    ?"fill-disabled"
+                    : Math.abs(itemValue - rating) < 1
+                      ? "half-filled-disabled"
+                      : "empty-disabled"
+                  : ""
+                }
+                `}
+                onClick={!readOnly ? (e) => handleClick(e, itemValue) : () => {}}
+                onMouseMove={!readOnly ? (e) => handleMouseEnter(e, itemValue): () => {}}
+                onMouseLeave={!readOnly ?(e) => handleMouseLeave(e, rating): () => {}}
+              >
+                {
+                highlightSelectedOnly
+                ? itemValue === rating ? icon : emptyIcon  
+                : !isHover
+                  ? itemValue <= rating 
+                    ? icon
+                    :Math.abs(itemValue - rating) < 1  
+                      ? fractionIcon : emptyIcon
+                  : itemValue <= hover 
+                    ? icon
+                    : Math.abs(itemValue - hover) < 1 
+                      ? fractionIcon
+                      : emptyIcon
+                }
+              </button>
+            </div>
+          )})}
       </div>
     )
 }

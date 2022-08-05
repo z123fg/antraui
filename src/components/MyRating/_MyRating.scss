@@ -6,6 +6,15 @@
     position: relative;
     justify-content: center;
     width: fit-content;
+    flex-direction: row;
+}
+
+.rating__container{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: fit-content;
+    flex-direction: row;
 }
 
 .rate > button {

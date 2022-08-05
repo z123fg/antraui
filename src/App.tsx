@@ -17,6 +17,8 @@ function App() {
       <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton>
       </div>
       <div style={{display:"flex", flexDirection:"column", border:'1px solid black', width:'fit-content'}}>
+        <label>Default Rating</label>
+        <MyRating/>
         <label>Normal Rating - Small</label>
         <MyRating 
         onValueChange={(newValue)=>{console.log(newValue)}} 
@@ -42,6 +44,8 @@ function App() {
         <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={1} highlightSelectedOnly/>
         <label>Fraction Selection</label>
         <MyRating onValueChange={(newValue)=>{console.log(newValue)}} precision={0.5}/>
+        <label>Out of range value</label>
+        <MyRating onValueChange={(newValue)=>{console.log(newValue)}} max={3} value={5} precision={0.5}/>
       </div>
     </div>
   );
