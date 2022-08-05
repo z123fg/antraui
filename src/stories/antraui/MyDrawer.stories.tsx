@@ -17,17 +17,17 @@ const Template: ComponentStory<typeof MyDrawer> = (args) => (
 
 export const Left = Template.bind({});
 Left.args = {
-  direction: "left",
+  anchor: "left",
 };
 export const Right = Template.bind({});
 Right.args = {
-  direction: "right",
+  anchor: "right",
 };
 export const Top = Template.bind({});
 Top.args = {
-  direction: "top",
+  anchor: "top",
 };
 export const Bottom = Template.bind({});
 Bottom.args = {
-  direction: "bottom",
+  anchor: "bottom",
 };

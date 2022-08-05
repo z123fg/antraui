@@ -7,43 +7,39 @@ import {
   useState,
 } from "react";
 
-type DrawerDirection = "top" | "left" | "right" | "bottom";
+//Import Drawer Varient
+import PermanentDrawer from "./PermanentDrawer";
+import PersistentDrawer from "./PersistentDrawer";
+import TemporaryDrawer from "./TemporaryDrawer";
+
+
+type Anchor = "top" | "left" | "right" | "bottom";
+type Variant = "permanent" | "persistent" | "temporary" ;
 
 interface IMyDrawerProps {
+  variant?:Variant;
   open?: boolean;
-  direction?: DrawerDirection;
+  anchor?: Anchor;
   children?: ReactNode;
   onClick?: (event: MouseEvent) => void;
+  onClose?: (event: MouseEvent) => void;
 }
 
 const MyDrawer: FC<IMyDrawerProps> = ({
-  open = false,
-  direction = "left",
-  children,
-  onClick,
+  //default prop values
+  variant="temporary",
+  anchor="left",
+  children="",
+  open=false,
+  
 }) => {
-  const constructClassName: () => string = () => {
-    const drawerDir = `drawer-${direction}`;
-    return ["drawer", drawerDir].join(" ");
-  };
 
   return (
-    <div>
-      {/* <div>
-        <button className="button" id="button"></button>
-      </div> */}
-
-      <button className="button" id="button"></button>
-
-      <nav id="drawer" className={constructClassName()}>
-        <ul id="drawer-container">
-          <li>Item One</li>
-          <li>Item Two</li>
-          <li>Item Three</li>
-          <li>Item Four</li>
-        </ul>
-      </nav>
-    </div>
+   <div>
+    {variant === "permanent" && <PermanentDrawer/>}
+    {variant === "persistent" && <PersistentDrawer/>}
+    {variant === "temporary" && <TemporaryDrawer/>}
+   </div>
   );
 };
 

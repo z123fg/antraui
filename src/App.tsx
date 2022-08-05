@@ -13,11 +13,9 @@ function App() {
       <MyButton onClick={()=>{console.log("clicked")}} color="secondary" variant="text" disabled>SUBMIT</MyButton>
       <MyButton onClick={()=>{console.log("clicked")}} color="primary" variant="contained" >SUBMIT</MyButton> */}
       <MyDrawer
-        onClick={() => {
-          console.log("clicked drawer");
-        }}
-      ></MyDrawer>
-    </div>
+       anchor="left"
+      >Click Me</MyDrawer >
+    </div>  
   );
 }
 
