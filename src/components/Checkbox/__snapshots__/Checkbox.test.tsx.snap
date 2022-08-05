@@ -11,6 +11,7 @@ exports[`Checkbox test cases snapshot test for Checkbox 1`] = `
     >
       <input
         class="checkbox checkbox-primary-medium checkbox-medium"
+        data-testid="hidden-checkbox"
         name="checkbox"
         type="checkbox"
       />

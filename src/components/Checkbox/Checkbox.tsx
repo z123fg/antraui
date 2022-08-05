@@ -108,6 +108,7 @@ const Checkbox: FC<ICheckboxProps> = ({
         <input
           name="checkbox"
           type="checkbox"
+          data-testid="hidden-checkbox"
           className={constructClassName()}
           checked={checkstate}
           onChange={() => {
