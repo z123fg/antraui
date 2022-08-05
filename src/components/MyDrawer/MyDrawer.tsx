@@ -29,11 +29,9 @@ const MyDrawer: FC<IMyDrawerProps> = ({
 
   return (
     <div>
-      {/* <h1>My Drawer</h1> */}
-
-      {/* <nav className="btn-group">
+      {/* <div>
         <button className="button" id="button"></button>
-      </nav> */}
+      </div> */}
 
       <button className="button" id="button"></button>
 
