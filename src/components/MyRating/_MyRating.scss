@@ -1,0 +1,53 @@
+@use "../../scss/variable";
+@use "../../scss/mixin";
+
+.rate{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: fit-content;
+}
+
+.rate > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    cursor: pointer;
+    color: #FFB400;
+
+    -webkit-transition: -webkit-transform 0.2s;
+	transition: -webkit-transform 0.2s;
+	transition: transform 0.2s;
+	transition: transform 0.2s, -webkit-transform 0.2s; /* Animation */
+
+    // disabled added for testing 
+    &:disabled {
+      pointer-events: none;
+    }
+
+    &:hover {
+        -webkit-transform: scale(1.5);
+	        transform: scale(1.5);
+    }
+
+}
+
+.fill-disabled > svg {
+    color: #FFB400;
+    opacity: 0.55;
+}
+.half-filled-disabled{
+    color: #FFB400;
+    fill:rgba(0, 0, 0, 0.26);
+    opacity: 0.55;
+}
+.empty-disabled > svg {
+    color: rgba(0, 0, 0, 0.26);
+    opacity: 0.55;
+}
+.icon:read-only:hover{
+    border: 1px solid transparent;
+}
