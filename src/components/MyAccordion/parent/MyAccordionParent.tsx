@@ -2,7 +2,7 @@
 // COMPONENT FOR TESTING PURPOSES ONLY
 //
 
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import MyAccordion from "../MyAccordion";
 
 const UserExpandIcon: React.FC = () => {
@@ -41,27 +41,38 @@ const accordionData = [
 ];
 
 const MyAccordionParent: FC = () => {
-  const [expanded, setExpanded] = useState(false);
+  const [active, activeSet] = useState(false);
 
-  console.log(expanded);
+  // console.log(expanded);
+
 
   return (
     <div style={{ minHeight: "100vh" }}>
       <div style={{ maxWidth: 800, marginTop: 20 }}>
-        {/* {accordionData.map((panel) => (
+        <h1>Simple Component</h1>
+        <MyAccordion
+          variant="simple"
+          summary="My Example Summary"
+          detail="Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail. Basic Accordion Detail."
+        />
+        <MyAccordion variant="simple" />
+        <MyAccordion variant="simple" />
+        <MyAccordion variant="simple" />
+
+        <h1>Controlled Component</h1>
+        {accordionData.map((idx) => (
           <MyAccordion
             variant="controlled"
-            summary={panel.summary}
-            subSummary={panel.subSummary}
-            detail={panel.detail}
+            // panelId={`panel-${idx}`}
+            active={active}
+            summary={idx.summary}
+            subSummary={idx.subSummary}
+            detail={idx.detail}
           />
-        ))} */}
-      </div>
+        ))}
 
-      <div style={{ maxWidth: 800, marginTop: 20 }}>
-        <MyAccordion variant="simple" />
-        <MyAccordion variant="controlled" />
-        <MyAccordion variant="action" />
+        <h1>Action Component</h1>
+        {/* <MyAccordion variant="action" /> */}
       </div>
     </div>
   );

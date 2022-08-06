@@ -2,10 +2,8 @@
 @use "../../scss/mixin";
 
 $accordion-filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.2))
-drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14))
-drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
-// $accordion-drawer-animation: ;
-// $accordion-transition: ;
+  drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.14))
+  drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 
 @mixin lg-accordion-typography {
   font-family: variable.$font-family;
@@ -23,6 +21,11 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
   text-align: start;
   font-weight: 400;
   font-size: 15px;
+}
+
+@mixin panel-button-reset {
+  box-sizing: border-box;
+  border: none;
 }
 
 @mixin accordion-gutter {
@@ -51,12 +54,15 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 .accordion__panel--container {
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: space-between;
+  justify-content: space-between;
+  align-items: center;
   flex-direction: column;
   transition: all 1s ease;
 
+  @include accordion-gutter;
+  @include panel-button-reset;
   filter: $accordion-filter;
+  cursor: pointer;
 
   &:first-of-type {
     border-radius: 4px 4px 0px 0px;
@@ -68,19 +74,18 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 
 .accordion__summary--container {
   @include accordion-gutter;
-
+  width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-
-  cursor: pointer;
 }
 
 .accordion__detail--wrapper {
-  display: block;
-  max-width: 100%;
-  transition: max-height 1s ease;
-  overflow: auto;
+  width: 100%;
+  display: flex;
+  max-height: 0;
+  transition: 0.5s ease-in-out;
+  overflow: hidden;
 }
 .accordion__detail--wrapper::-webkit-scrollbar {
   display: none;
@@ -94,3 +99,58 @@ drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.12));
 }
 
 // animation
+// .detail__animation--expanded {
+//   animation: slideInDown 1s;
+// }
+
+// .detail__animation--retract {
+//   animation: retract 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+// }
+
+// @keyframes slideInDown {
+//   0% {
+//     transform: translate3d(0, -75%, 0);
+//     transition: 1s ease;
+//     transition-delay: 0.25s;
+//     opacity: 0;
+//   }
+//   100% {
+//     transform: translate3d(0, 0, 0);
+//     opacity: 1;
+//     visibility: visible;
+//   }
+// }
+
+// @keyframes slideOutUp {
+//   0% {
+//     transform: translate3d(0, -75%, 0);
+//     transition: 1s ease;
+//     visibility: visible;
+//     opacity: 1;
+//   }
+//   100% {
+//     transform: translate3d(0, 0, 0);
+//     opacity: 0;
+//   }
+// }
+
+// @keyframes expand {
+//   0% {
+//   }
+//   100% {
+//   }
+// }
+// @keyframes retract {
+//   0% {
+//     -webkit-transform: scaleY(1);
+//     transform: scaleY(1);
+//     -webkit-transform-origin: 100% 0%;
+//     transform-origin: 100% 0%;
+//   }
+//   100% {
+//     -webkit-transform: scaleY(0.3);
+//     transform: scaleY(0.3);
+//     -webkit-transform-origin: 100% 0%;
+//     transform-origin: 100% 0%;
+//   }
+// }
