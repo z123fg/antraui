@@ -1,5 +1,6 @@
 @use "../../scss/variable";
 @use "../../scss/mixin";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 $color-map: (
   primary: (
@@ -30,7 +31,13 @@ $color-map: (
     margin: 9px;
     padding: 9px;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.15px;
     @if $size == "small" {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
       height: variable.$small-box-size;
       width: variable.$small-box-size;
     } @else if $size == "medium" {
@@ -41,6 +48,10 @@ $color-map: (
       width: variable.$large-box-size;
     }
   }
+  // This is for Hover but will need to be implemented differently
+  // .checkbox--icon-#{$color}-#{$size} svg:hover {
+  //   fill: map-get(map-get($color-map, $color), "hover");
+  // }
   .checkbox-#{$color}-#{$size}:disabled {
     cursor: default;
   }
@@ -49,15 +60,15 @@ $color-map: (
     fill: map-get(map-get($color-map, $color), "default");
     padding: 9px;
     @if $size == "small" {
-      position: absolute;
+      // position: absolute;
       height: variable.$small-box-size;
       width: variable.$small-box-size;
     } @else if $size == "medium" {
-      position: absolute;
+      // position: absolute;
       height: variable.$medium-box-size;
       width: variable.$medium-box-size;
     } @else if $size == "large" {
-      position: absolute;
+      // position: absolute;
       height: variable.$large-box-size;
       width: variable.$large-box-size;
     }
@@ -101,6 +112,12 @@ $color-map: (
   }
   .checkbox--label-#{$labelPlace} {
     display: inline-flex;
+    margin: 0px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
     @if $labelPlace == "end" {
 
     } @else if $labelPlace == "top" {
@@ -108,7 +125,7 @@ $color-map: (
     } @else if $labelPlace == "start" {
 
     } @else if $labelPlace == "bottom" {
-      
+      transform: translate(0, -10px);
     }
   }
 }
