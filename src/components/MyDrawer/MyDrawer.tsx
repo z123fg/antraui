@@ -19,7 +19,7 @@ interface IMyDrawerProps {
 
 const MyDrawer: FC<IMyDrawerProps> = ({
   //open = false,
-  direction = "top",
+  direction = "bottom",
   children,
   onClick,
 }) => {
@@ -31,49 +31,47 @@ const MyDrawer: FC<IMyDrawerProps> = ({
     right: false,
   });
   const [currentDir, setCurrendir] = useState(direction);
+
   const onCloseBottom = (e: MouseEvent) => {
-    console.log("openDrawer ", openDrawer);
-    setCurrendir(() => "bottom");
-    setOpendrawer((prev) => {
-      return { ...prev, bottom: !openDrawer.bottom };
-    });
-  };
-
-  const onCloseTop = (e: MouseEvent) => {
-    console.log("openDrawer ", openDrawer);
-    setCurrendir(() => "top");
-    setOpendrawer((prev) => {
-      return {
-        ...prev,
-        top: !openDrawer.top,
-      };
-    });
-  };
-
-  const onCloseLeft = (e: MouseEvent) => {
-    console.log("openDrawer ", openDrawer);
-    setCurrendir(() => "left");
-    setOpendrawer((prev) => {
-      return {
-        ...prev,
-        left: !openDrawer.left,
-      };
-    });
-  };
-
-  const onCloseRight = (e: MouseEvent) => {
-    console.log("openDrawer ", openDrawer);
-    setCurrendir(() => "right");
-    setOpendrawer((prev) => {
-      return {
-        ...prev,
-        right: !openDrawer.right,
-      };
-    });
+    //console.log("current Dir ", currentDir);
+    //console.log("openDrawer ", openDrawer);
+    if (direction == "bottom") {
+      console.log("bottom direction ", direction);
+      setCurrendir("bottom");
+      setOpendrawer((prev) => {
+        return { ...prev, bottom: !openDrawer.bottom };
+      });
+    } else if (direction == "top") {
+      console.log("top direction ", direction);
+      setCurrendir("top");
+      setOpendrawer((prev) => {
+        return {
+          ...prev,
+          top: !openDrawer.top,
+        };
+      });
+    } else if (direction == "left") {
+      console.log("openDrawer ", openDrawer);
+      setCurrendir("left");
+      setOpendrawer((prev) => {
+        return {
+          ...prev,
+          left: !openDrawer.left,
+        };
+      });
+    } else if (direction == "right") {
+      setCurrendir("right");
+      setOpendrawer((prev) => {
+        return {
+          ...prev,
+          right: !openDrawer.right,
+        };
+      });
+    }
   };
 
   const constructClassName: () => string = () => {
-    console.log("currentDir ", currentDir);
+    //console.log("currentDir ", currentDir);
     type ObjectKey = keyof typeof openDrawer;
     const myDir = currentDir as ObjectKey;
     var openState = openDrawer[myDir];
@@ -87,26 +85,14 @@ const MyDrawer: FC<IMyDrawerProps> = ({
 
   return (
     <div>
-      <div className="btn-group">
-        <button onClick={onCloseBottom}>
-          <p>B</p>
-          <MenuIcon className="button" id="button" />
-        </button>
-        <button onClick={onCloseTop}>
-          <p>T</p>
-          <MenuIcon className="button" id="button" />
-        </button>
-        <button onClick={onCloseLeft}>
-          <p>L</p>
-          <MenuIcon className="button" id="button" />
-        </button>
-        <button onClick={onCloseRight}>
-          <p>R</p>
+      <div className="btn-dirs">
+        <button onClick={onCloseBottom} className="btn-dir">
+          <p>{direction}</p>
           <MenuIcon className="button" id="button" />
         </button>
       </div>
 
-      <nav id="drawer" className={constructClassName()}>
+      <nav className={constructClassName()}>
         <ul id="drawer-container" className={constructUlClassName()}>
           <li>{constructClassName()}</li>
           <li>Item Two</li>

@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.drawer {
+  display: flex;
+  position: fixed;
+  left: 20%;
+  width: 50%;
+  outline: darkgray solid 0.5mm;
+  padding: 10px 24px;
+  float: left;
+}
