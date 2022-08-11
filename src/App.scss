@@ -40,9 +40,10 @@
 .drawer {
   display: flex;
   position: fixed;
-  left: 20%;
+  left: 10%;
   width: 50%;
   outline: darkgray solid 0.5mm;
-  padding: 10px 24px;
+  padding-top: 10px;
   float: left;
+  max-height: 100px;
 }
