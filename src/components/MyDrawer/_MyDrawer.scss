@@ -2,10 +2,17 @@
 @use "../../scss/mixin";
 
 /***************** Button Group *******************/
-.btn-group {
+.btn-dir {
   position: fixed;
-  left: 30%;
-  top: 30%;
+  width: 60px;
+  outline: blue solid 0.5mm;
+}
+
+.btn-dirs {
+  width: 50px;
+  outline: red solid 2mm;
+  display: flex;
+  justify-content: space-between;
 }
 
 /***************** Bottom *******************/
