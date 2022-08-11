@@ -5,25 +5,25 @@
 .btn-dir {
   position: fixed;
   width: 60px;
-  outline: blue solid 0.5mm;
+  border-radius: 5px;
+  border-width: 0.3mm;
 }
 
 .btn-dirs {
   width: 50px;
-  outline: red solid 2mm;
+  //outline: red solid 2mm;
   display: flex;
   justify-content: space-between;
 }
 
 /***************** Bottom *******************/
 .drawer-bottom-true {
-  min-width: 90%;
+  min-width: 100%;
   position: fixed;
-  left: 5%;
-  bottom: 3%;
+  left: 0px;
+  bottom: 0px;
   transition: transform 1s;
-  outline: darkgray solid 0.5mm;
-  background-color: beige;
+  background-color: black;
 }
 
 .drawer-bottom-false {
@@ -35,17 +35,18 @@
   display: flex;
   gap: 25px;
   list-style: none;
+  color: white;
+  padding: 8px 8px 8px 32px;
 }
 
 /***************** Top *******************/
 .drawer-top-true {
-  min-width: 90%;
+  min-width: 100%;
   position: fixed;
-  left: 5%;
-  top: 3%;
+  left: 0px;
+  top: 0px;
   transition: transform 1s;
-  outline: darkgray solid 0.5mm;
-  background-color: beige;
+  background-color: black;
 }
 
 .drawer-top-false {
@@ -57,18 +58,19 @@
   display: flex;
   gap: 25px;
   list-style: none;
+  color: white;
+  padding: 8px 8px 8px 32px;
 }
 
 /***************** Left *******************/
 .drawer-left-true {
   min-width: 10%;
-  min-height: 90%;
+  min-height: 100%;
   position: fixed;
-  left: 2%;
-  top: 3%;
+  left: 0px;
+  top: 0px;
   transition: transform 1s;
-  outline: darkgray solid 0.5mm;
-  background-color: beige;
+  background-color: black;
 }
 
 .drawer-left-false {
@@ -79,18 +81,18 @@
 .drawer-left-container {
   padding: 15%;
   list-style: none;
+  color: white;
 }
 
 /***************** Right *******************/
 .drawer-right-true {
   min-width: 10%;
-  min-height: 90%;
+  min-height: 100%;
   position: fixed;
-  right: 2%;
-  top: 3%;
+  right: 0px;
+  top: 0px;
   transition: transform 1s;
-  outline: darkgray solid 0.5mm;
-  background-color: beige;
+  background-color: black;
 }
 
 .drawer-right-false {
@@ -101,4 +103,5 @@
 .drawer-right-container {
   padding: 10%;
   list-style: none;
+  color: white;
 }
