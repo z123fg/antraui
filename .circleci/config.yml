@@ -1,27 +1,27 @@
-version: 2
-  jobs:
-    test:
-      docker:
-        - image: circleci/node:12.16
-      steps:
-        - checkout
-        - run: echo "Running tests"
-        - run: npm install
-        - run: npm test
-    build:
-      docker:
-        - image: circleci/node:12.16
-      steps:
-        - checkout
-        - run: echo "build storybook project"
-        - npm install
-        - npm run build-storybook
+version: 2.1
 
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.16
+    steps:
+      - checkout
+      - run: echo "Running tests"
+      - run: npm install
+      - run: npm test
+  test:
+    docker:
+      - image: circleci/node:12.16
+    steps:
+      - checkout
+      - run: echo "build project"
+      - npm install
+      - npm run build-storybook
+
+# Orchestrate our job run sequence
 workflows:
-  version: 2
-    test_build:
-      jobs:
-        - test
-        - build:
-          requires:
-            - test
+  build_and_test:
+    jobs:
+      - build
+      - test
