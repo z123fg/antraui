@@ -16,8 +16,8 @@ jobs:
     steps:
       - checkout
       - run: echo "build project"
-      - npm install
-      - npm run build-storybook
+      - run: npm install
+      - run: npm run build-storybook
 
 # Orchestrate our job run sequence
 workflows:
