@@ -38,7 +38,7 @@ interface IClickPosition {
   x:number;
   y:number;
 }
-
+//
 let counter = 0;
 
 const MyButton: FC<IMyButtonProps> = ({
